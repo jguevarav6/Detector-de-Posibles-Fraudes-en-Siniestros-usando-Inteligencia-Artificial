@@ -284,7 +284,7 @@ pytest
 - Revisión de seguridad: Antes del commit se confirma que no existe `.env` real, credenciales, bases SQLite, CSV generados ni datos reales.
 - Problema encontrado: La carpeta local aún no estaba inicializada como repositorio Git.
 - Solución aplicada: Inicializar repo local y preparar push al remoto indicado por el usuario.
-- Tarea completada: Pendiente de confirmación del push.
-- Tarea pendiente: Crear ramas de trabajo por fase: `feature/datos-sinteticos`, `feature/reglas-score`, `feature/dashboard-streamlit`, `feature/agente-local`.
+- Tarea completada: Repo local inicializado en `main`, remoto configurado y commit inicial creado.
+- Tarea pendiente: Completar publicación remota con credenciales autorizadas.
 - Progreso estimado: 26%.
 - Siguiente paso: Ejecutar commit inicial y subir a GitHub.
