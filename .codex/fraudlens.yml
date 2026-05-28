@@ -76,4 +76,4 @@ after_important_change:
     - progreso_estimado
   progress_rule: "Informar al usuario tarea hecha, tarea pendiente y porcentaje estimado de avance."
   security_rule: "Confirmar que no se agregaron datos reales, credenciales, API keys, .env real ni lenguaje acusatorio."
-  git_rule: "Trabajar cada tarea nueva en una rama separada; registrar nombre de rama y descripcion detallada del commit antes de cerrar la tarea."
+  git_rule: "Antes de crear una rama nueva, cambiar a main y ejecutar git pull origin main. Crear la rama desde main, hacer commit, subir la rama y abrir PR hacia main cuando sea posible. Si no hay GitHub CLI, hacer merge local revisado y push a main."
