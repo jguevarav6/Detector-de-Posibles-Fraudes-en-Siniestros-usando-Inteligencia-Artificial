@@ -29,9 +29,9 @@ Reglas:
 | Reglas y scoring | Persona 2 | Pendiente | 0% |
 | ML/NLP | Persona 2 | Pendiente | 0% |
 | Agente local/MCP | Persona 2 | Pendiente | 0% |
-| QA, docs y demo | Ambos | Estructura creada | 15% |
+| QA, docs y demo | Ambos | Estructura creada | 20% |
 
-Progreso global estimado de implementación: 18%.
+Progreso global estimado de implementación: 20%.
 
 ---
 
@@ -275,7 +275,7 @@ Progreso global estimado de implementación: 18%.
 
 ## Documentación
 
-- [~] Completar `README.md`.
+- [x] Completar `README.md`.
 - [~] Completar documentación de modelo de datos.
 - [~] Completar documentación de reglas.
 - [~] Completar documentación de uso de IA.

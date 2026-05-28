@@ -18,6 +18,17 @@ Regla de progreso: cada actualización importante debe indicar porcentaje estima
 
 Regla de ramas y commits: cada tarea debe trabajarse en una rama separada, indicando nombre de rama y descripción detallada del commit esperado. La rama `main` queda como rama estable de integración.
 
+Flujo obligatorio de Git:
+
+1. Cambiar a `main`.
+2. Actualizar con `git pull origin main`.
+3. Crear una rama nueva desde `main`.
+4. Hacer cambios y commit en la rama.
+5. Subir la rama al remoto.
+6. Crear PR hacia `main` cuando haya GitHub CLI o hacerlo desde GitHub web.
+7. Integrar a `main` solo después de revisar el cambio.
+8. Actualizar `main` local después del merge.
+
 ## Plantilla de entrada
 
 ```md
@@ -43,7 +54,7 @@ Regla de ramas y commits: cada tarea debe trabajarse en una rama separada, indic
 
 | Área | Estado | Progreso |
 |---|---|---:|
-| Documentación base | En progreso | 80% |
+| Documentación base | En progreso | 90% |
 | Integración Codex skills/agentes | Completo | 100% |
 | Tablero de tareas por rol | Completo | 100% |
 | Estructura de repo ejecutable | Completo | 100% |
@@ -52,9 +63,9 @@ Regla de ramas y commits: cada tarea debe trabajarse en una rama separada, indic
 | ML/NLP | Pendiente | 0% |
 | Dashboard Streamlit | Pendiente | 0% |
 | Agente local/MCP | Pendiente | 0% |
-| QA/demo/pitch | Estructura creada | 15% |
+| QA/demo/pitch | Estructura creada | 20% |
 
-Progreso global estimado: 25%.
+Progreso global estimado: 28%.
 
 ## Plan de trabajo por fases
 
@@ -288,3 +299,37 @@ pytest
 - Tarea pendiente: Completar publicación remota con credenciales autorizadas.
 - Progreso estimado: 26%.
 - Siguiente paso: Ejecutar commit inicial y subir a GitHub.
+
+## 2026-05-27 - README e instalación de dependencias
+
+- Responsable: Codex.
+- Tipo de cambio: documentacion, repo/config, qa.
+- Rama: docs/readme-install-deps.
+- Descripción de commit: Ampliar README con contexto del reto, alcance, stack, estructura, instalación, ejecución, entregables, seguridad y estado del MVP; verificar instalación de dependencias del proyecto.
+- Tarea: Ajustar `README.md` según los requisitos de `Proyecto.md` e instalar dependencias desde `requirements.txt`.
+- Archivos modificados: `README.md`, `docs/development.md`, `docs/tareas.md`.
+- Decisión tomada: Mantener instalación estándar con `pip install -r requirements.txt` y documentar que el proyecto aún está en fase de arquitectura/placeholders.
+- Revisión de seguridad: No se agregaron datos reales, credenciales, API keys ni `.env` real. El README mantiene lenguaje de alerta para revisión humana.
+- Problema encontrado: `pip install -r requirements.txt` falló inicialmente por bloqueo de red/permisos.
+- Solución aplicada: Reintentar instalación con permisos de red aprobados; dependencias instaladas en user site-packages porque el site-packages global no es escribible.
+- Tarea completada: README ampliado, dependencias instaladas y versiones importadas verificadas.
+- Tarea pendiente: Integrar rama a `main` y confirmar si se usará entorno virtual local `venv` para aislar dependencias antes de implementar datos.
+- Progreso estimado: 28%.
+- Siguiente paso: Commit y push de la rama `docs/readme-install-deps`.
+
+## 2026-05-27 - Integración de rama README a main
+
+- Responsable: Codex.
+- Tipo de cambio: repo/config, documentacion.
+- Rama: docs/readme-install-deps -> main.
+- Descripción de commit: Registrar flujo obligatorio de ramas desde `main`, integración por PR o merge revisado y actualización de `main` antes de crear nuevas ramas.
+- Tarea: Integrar la rama `docs/readme-install-deps` a `main` después de subirla.
+- Archivos modificados: `docs/development.md`.
+- Decisión tomada: Como GitHub CLI no está instalado, se hará merge local controlado a `main` y push al remoto.
+- Revisión de seguridad: No se agregaron datos reales, credenciales, API keys ni `.env` real.
+- Problema encontrado: No existe `gh` en el entorno para crear PR desde terminal.
+- Solución aplicada: Documentar flujo de PR y usar merge local revisado como alternativa.
+- Tarea completada: Pendiente de merge a `main`.
+- Tarea pendiente: Cambiar a `main`, actualizarla, mergear la rama y empujar `main`.
+- Progreso estimado: 29%.
+- Siguiente paso: Merge local de `docs/readme-install-deps` hacia `main`.
