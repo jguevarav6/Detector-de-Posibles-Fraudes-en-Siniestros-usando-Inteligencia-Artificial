@@ -1,12 +1,20 @@
-"""
-Punto de entrada previsto para preparar la demo local.
+"""Prepara la demo local de FraudLens Claims AI."""
 
-Este archivo solo define la ubicación arquitectónica del flujo:
-1. generar datos sintéticos
-2. construir SQLite
-3. construir features
-4. calcular scores
-5. preparar salidas para Streamlit
+from __future__ import annotations
 
-La lógica se implementará en fases posteriores.
-"""
+from src.data_generation.generate_synthetic_data import generate_all
+from src.database.build_database import build_database
+
+
+def main() -> None:
+    outputs = generate_all()
+    database_path = build_database()
+    print("Datos sintéticos generados:")
+    for name, path in outputs.items():
+        print(f"- {name}: {path}")
+    print(f"SQLite local: {database_path}")
+    print("Pendiente: features, scoring, ML/NLP y agente real se implementarán en fases posteriores.")
+
+
+if __name__ == "__main__":
+    main()

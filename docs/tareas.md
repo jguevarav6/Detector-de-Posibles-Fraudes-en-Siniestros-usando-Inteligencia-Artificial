@@ -25,13 +25,13 @@ Reglas:
 |---|---|---|---:|
 | Configuración base | Ambos | Completo | 100% |
 | Frontend Streamlit | Persona 1 | En progreso | 55% |
-| Backend, datos y SQL | Persona 2 | Estructura creada | 15% |
+| Backend, datos y SQL | Persona 2 | En progreso | 45% |
 | Reglas y scoring | Persona 2 | Pendiente | 0% |
 | ML/NLP | Persona 2 | Pendiente | 0% |
 | Agente local/MCP | Persona 2 | Pendiente | 0% |
-| QA, docs y demo | Ambos | En progreso | 25% |
+| QA, docs y demo | Ambos | En progreso | 30% |
 
-Progreso global estimado de implementación: 34%.
+Progreso global estimado de implementación: 42%.
 
 ---
 
@@ -137,28 +137,28 @@ Progreso global estimado de implementación: 34%.
 ## Fase 2: datos sintéticos
 
 - [x] Crear `src/data_generation/generate_synthetic_data.py`.
-- [ ] Generar `data/synthetic/claims.csv`.
-- [ ] Generar `data/synthetic/policies.csv`.
-- [ ] Generar `data/synthetic/insured.csv`.
-- [ ] Generar `data/synthetic/vehicles.csv`.
-- [ ] Generar `data/synthetic/providers.csv`.
-- [ ] Generar `data/synthetic/documents.csv`.
-- [ ] Usar IDs anónimos.
-- [ ] Inyectar casos normales.
-- [ ] Inyectar casos con señales de posible riesgo.
-- [ ] Documentar supuestos del dataset.
+- [x] Generar `data/synthetic/claims.csv`.
+- [x] Generar `data/synthetic/policies.csv`.
+- [x] Generar `data/synthetic/insured.csv`.
+- [x] Generar `data/synthetic/vehicles.csv`.
+- [x] Generar `data/synthetic/providers.csv`.
+- [x] Generar `data/synthetic/documents.csv`.
+- [x] Usar IDs anónimos.
+- [x] Inyectar casos normales.
+- [x] Inyectar casos con señales de posible riesgo.
+- [x] Documentar supuestos del dataset.
 
 ## Fase 3: SQLite y consultas
 
 - [x] Crear `src/database/build_database.py`.
-- [ ] Crear base SQLite local desde CSV.
-- [ ] Crear tablas `claims`.
-- [ ] Crear tablas `policies`.
-- [ ] Crear tablas `insured`.
-- [ ] Crear tablas `vehicles`.
-- [ ] Crear tablas `providers`.
-- [ ] Crear tablas `documents`.
-- [ ] Crear tabla `risk_scores`.
+- [x] Crear base SQLite local desde CSV.
+- [x] Crear tablas `claims`.
+- [x] Crear tablas `policies`.
+- [x] Crear tablas `insured`.
+- [x] Crear tablas `vehicles`.
+- [x] Crear tablas `providers`.
+- [x] Crear tablas `documents`.
+- [x] Crear tabla `risk_scores`.
 - [x] Crear `src/database/queries.py`.
 - [ ] Crear consultas para dashboard.
 - [ ] Crear consultas para agente.
@@ -262,7 +262,7 @@ Progreso global estimado de implementación: 34%.
 
 ## Fase 11: tests
 
-- [ ] Crear tests de generación de datos.
+- [x] Crear tests de generación de datos.
 - [ ] Crear tests de reglas.
 - [ ] Crear tests de scoring.
 - [ ] Crear tests de NLP.
@@ -276,7 +276,7 @@ Progreso global estimado de implementación: 34%.
 ## Documentación
 
 - [x] Completar `README.md`.
-- [~] Completar documentación de modelo de datos.
+- [x] Completar documentación de modelo de datos.
 - [~] Completar documentación de reglas.
 - [~] Completar documentación de uso de IA.
 - [~] Completar documentación de ética y privacidad.
