@@ -61,11 +61,11 @@ Flujo obligatorio de Git:
 | Datos sintéticos | Pendiente | 0% |
 | Reglas y score | Pendiente | 0% |
 | ML/NLP | Pendiente | 0% |
-| Dashboard Streamlit | Pendiente | 0% |
+| Dashboard Streamlit | En progreso | 55% |
 | Agente local/MCP | Pendiente | 0% |
-| QA/demo/pitch | Estructura creada | 20% |
+| QA/demo/pitch | En progreso | 25% |
 
-Progreso global estimado: 28%.
+Progreso global estimado: 34%.
 
 ## Plan de trabajo por fases
 
@@ -333,3 +333,20 @@ pytest
 - Tarea pendiente: Cambiar a `main`, actualizarla, mergear la rama y empujar `main`.
 - Progreso estimado: 29%.
 - Siguiente paso: Merge local de `docs/readme-install-deps` hacia `main`.
+
+## 2026-05-27 - Frontend Streamlit inicial
+
+- Responsable: Codex.
+- Tipo de cambio: frontend, qa, seguridad.
+- Rama: feature/frontend-streamlit-dashboard.
+- Descripción de commit: Implementar dashboard Streamlit inicial con navegación, estilos responsive, datos demo sintéticos de fallback, KPIs, bandeja filtrable, detalle, proveedores, agente demo, reportes y pruebas mínimas del frontend.
+- Tarea: Construir primera versión funcional del frontend sin implementar lógica backend, reglas, ML ni SQL.
+- Archivos modificados: `src/app/`, `tests/test_frontend_demo_data.py`, `docs/development.md`, `docs/tareas.md`.
+- Decisión tomada: Usar Streamlit + Plotly y datos demo sintéticos de fallback para permitir desarrollo visual antes de que backend genere `scored_claims.csv`.
+- Revisión de seguridad: No se agregaron datos reales, credenciales, API keys ni `.env` real. La UI mantiene aviso de revisión humana y evita lenguaje acusatorio.
+- Problema encontrado: `pytest` no ejecutaba pruebas porque los tests previos eran placeholders sin funciones.
+- Solución aplicada: Agregar pruebas mínimas para validar el dataset demo del frontend.
+- Tarea completada: UI inicial responsive, navegación multipágina, pruebas frontend y validación local de Streamlit en `http://localhost:8501`.
+- Tarea pendiente: Conectar frontend con backend real cuando existan datos sintéticos procesados y agente local.
+- Progreso estimado: 34%.
+- Siguiente paso: Subir rama e integrar a `main`.
