@@ -58,14 +58,14 @@ Flujo obligatorio de Git:
 | Integración Codex skills/agentes | Completo | 100% |
 | Tablero de tareas por rol | Completo | 100% |
 | Estructura de repo ejecutable | Completo | 100% |
-| Datos sintéticos | Pendiente | 0% |
+| Datos sintéticos | En progreso | 80% |
 | Reglas y score | Pendiente | 0% |
 | ML/NLP | Pendiente | 0% |
 | Dashboard Streamlit | En progreso | 55% |
 | Agente local/MCP | Pendiente | 0% |
-| QA/demo/pitch | En progreso | 25% |
+| QA/demo/pitch | En progreso | 30% |
 
-Progreso global estimado: 34%.
+Progreso global estimado: 42%.
 
 ## Plan de trabajo por fases
 
@@ -350,3 +350,20 @@ pytest
 - Tarea pendiente: Conectar frontend con backend real cuando existan datos sintéticos procesados y agente local.
 - Progreso estimado: 34%.
 - Siguiente paso: Subir rama e integrar a `main`.
+
+## 2026-05-27 - Datos sintéticos y SQLite local
+
+- Responsable: Codex.
+- Tipo de cambio: datos, backend, qa, documentacion, seguridad.
+- Rama: feature/datos-sinteticos.
+- Descripción de commit: Implementar generador reproducible de CSV sintéticos, construcción de SQLite local, consultas básicas, orquestación en `setup_demo.py`, documentación del modelo de datos y pruebas de generación/base.
+- Tarea: Crear dataset sintético base y SQLite local para reemplazar gradualmente el fallback demo del frontend.
+- Archivos modificados: `src/data_generation/generate_synthetic_data.py`, `src/database/build_database.py`, `src/database/queries.py`, `setup_demo.py`, `tests/test_synthetic_data_generation.py`, `tests/test_database_build.py`, `docs/modelo_datos.md`, `docs/development.md`, `docs/tareas.md`.
+- Decisión tomada: Generar artefactos locales reproducibles con semilla fija y mantener CSV/SQLite fuera de Git mediante `.gitignore`.
+- Revisión de seguridad: No se usaron datos reales, credenciales, nombres, teléfonos, correos, documentos ni placas reales. Los identificadores son sintéticos y anónimos.
+- Problema encontrado: El repo solo tenía placeholders de datos y la UI dependía de fallback demo.
+- Solución aplicada: Crear generador con entidades mínimas, patrones de riesgo sintéticos y SQLite local con tablas `claims`, `policies`, `insured`, `vehicles`, `providers`, `documents` y `risk_scores`.
+- Tarea completada: `setup_demo.py` genera CSV sintéticos y SQLite local; tests de datos/base pasan.
+- Tarea pendiente: Construir features, reglas y `scored_claims.csv` para alimentar directamente el dashboard.
+- Progreso estimado: 42%.
+- Siguiente paso: Commit, subir rama e integrar a `main`.
