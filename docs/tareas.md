@@ -24,14 +24,14 @@ Reglas:
 | Área | Responsable | Estado | Progreso |
 |---|---|---|---:|
 | Configuración base | Ambos | Completo | 100% |
-| Frontend Streamlit | Persona 1 | Estructura creada | 15% |
+| Frontend Streamlit | Persona 1 | En progreso | 55% |
 | Backend, datos y SQL | Persona 2 | Estructura creada | 15% |
 | Reglas y scoring | Persona 2 | Pendiente | 0% |
 | ML/NLP | Persona 2 | Pendiente | 0% |
 | Agente local/MCP | Persona 2 | Pendiente | 0% |
-| QA, docs y demo | Ambos | Estructura creada | 20% |
+| QA, docs y demo | Ambos | En progreso | 25% |
 
-Progreso global estimado de implementación: 20%.
+Progreso global estimado de implementación: 34%.
 
 ---
 
@@ -40,58 +40,58 @@ Progreso global estimado de implementación: 20%.
 ## Fase 1: base visual de la app
 
 - [x] Crear `src/app/main.py`.
-- [ ] Crear navegación principal en sidebar.
+- [x] Crear navegación principal en sidebar.
 - [x] Crear estructura de páginas en `src/app/pages/`.
 - [x] Crear `src/app/components.py`.
 - [x] Crear `src/app/styles.py`.
-- [ ] Cargar datos procesados desde `data/processed/scored_claims.csv`.
-- [ ] Mostrar aviso ético fijo: el sistema genera alertas para revisión humana.
+- [x] Cargar datos procesados desde `data/processed/scored_claims.csv`.
+- [x] Mostrar aviso ético fijo: el sistema genera alertas para revisión humana.
 
 ## Fase 2: dashboard ejecutivo
 
-- [ ] Mostrar total de siniestros.
-- [ ] Mostrar cantidad de casos verdes.
-- [ ] Mostrar cantidad de casos amarillos.
-- [ ] Mostrar cantidad de casos rojos.
-- [ ] Mostrar monto total reclamado.
-- [ ] Mostrar monto asociado a casos rojos.
-- [ ] Crear gráfico de distribución por nivel de riesgo.
-- [ ] Crear gráfico de riesgo por ciudad.
-- [ ] Crear gráfico de riesgo por ramo.
-- [ ] Crear gráfico de top proveedores con alertas.
+- [x] Mostrar total de siniestros.
+- [x] Mostrar cantidad de casos verdes.
+- [x] Mostrar cantidad de casos amarillos.
+- [x] Mostrar cantidad de casos rojos.
+- [x] Mostrar monto total reclamado.
+- [x] Mostrar monto asociado a casos rojos.
+- [x] Crear gráfico de distribución por nivel de riesgo.
+- [x] Crear gráfico de riesgo por ciudad.
+- [x] Crear gráfico de riesgo por ramo.
+- [x] Crear gráfico de top proveedores con alertas.
 
 ## Fase 3: bandeja de siniestros
 
 - [x] Crear página `claims_inbox.py`.
-- [ ] Agregar filtros por nivel de riesgo.
-- [ ] Agregar filtros por ciudad.
-- [ ] Agregar filtros por ramo.
+- [x] Agregar filtros por nivel de riesgo.
+- [x] Agregar filtros por ciudad.
+- [x] Agregar filtros por ramo.
 - [ ] Agregar filtros por cobertura.
-- [ ] Agregar filtros por proveedor.
+- [x] Agregar filtros por proveedor.
 - [ ] Agregar filtro por rango de monto.
-- [ ] Mostrar tabla ordenada por `score_final` descendente.
-- [ ] Mostrar acción sugerida para revisión.
+- [x] Mostrar tabla ordenada por `score_final` descendente.
+- [x] Mostrar acción sugerida para revisión.
 
 ## Fase 4: detalle de siniestro
 
 - [x] Crear página `claim_detail.py`.
-- [ ] Agregar selector de `id_siniestro`.
-- [ ] Mostrar score final y semáforo.
-- [ ] Mostrar reglas activadas.
-- [ ] Mostrar explicación humana.
+- [x] Agregar selector de `id_siniestro`.
+- [x] Mostrar score final y semáforo.
+- [x] Mostrar reglas activadas.
+- [x] Mostrar explicación humana.
 - [ ] Mostrar datos de póliza.
-- [ ] Mostrar datos del asegurado sintético.
-- [ ] Mostrar datos del vehículo.
-- [ ] Mostrar datos del proveedor.
-- [ ] Mostrar documentos entregados/faltantes.
-- [ ] Mostrar narrativas similares si existen.
+- [x] Mostrar datos del asegurado sintético.
+- [x] Mostrar datos del vehículo.
+- [x] Mostrar datos del proveedor.
+- [x] Mostrar documentos entregados/faltantes.
+- [x] Mostrar narrativas similares si existen.
 
 ## Fase 5: proveedores
 
 - [x] Crear página `providers.py`.
-- [ ] Mostrar ranking de proveedores por alertas.
-- [ ] Mostrar casos rojos por proveedor.
-- [ ] Mostrar monto promedio reclamado.
+- [x] Mostrar ranking de proveedores por alertas.
+- [x] Mostrar casos rojos por proveedor.
+- [x] Mostrar monto promedio reclamado.
 - [ ] Mostrar porcentaje de casos observados.
 - [ ] Mostrar indicador de lista restrictiva simulada.
 
@@ -99,24 +99,24 @@ Progreso global estimado de implementación: 20%.
 
 - [x] Crear página `agent_chat.py`.
 - [ ] Conectar con `src/agent/agent_router.py`.
-- [ ] Agregar `st.chat_input`.
-- [ ] Agregar botones de preguntas rápidas.
-- [ ] Mostrar respuestas del agente con datos concretos.
-- [ ] Evitar que el agente use lenguaje acusatorio.
+- [x] Agregar `st.chat_input`.
+- [x] Agregar botones de preguntas rápidas.
+- [x] Mostrar respuestas del agente con datos concretos.
+- [x] Evitar que el agente use lenguaje acusatorio.
 
 ## Fase 7: reportes
 
 - [x] Crear página `reports.py`.
-- [ ] Agregar descarga CSV de casos rojos.
-- [ ] Agregar descarga CSV de todos los scores.
-- [ ] Mostrar resumen ejecutivo.
-- [ ] Mostrar recomendaciones de revisión.
+- [x] Agregar descarga CSV de casos rojos.
+- [x] Agregar descarga CSV de todos los scores.
+- [x] Mostrar resumen ejecutivo.
+- [x] Mostrar recomendaciones de revisión.
 
 ## Fase 8: pulido de demo
 
-- [ ] Revisar responsividad básica.
-- [ ] Revisar que textos no se corten.
-- [ ] Revisar colores del semáforo.
+- [x] Revisar responsividad básica.
+- [x] Revisar que textos no se corten.
+- [x] Revisar colores del semáforo.
 - [ ] Ensayar flujo: dashboard -> bandeja -> detalle -> agente -> reporte.
 - [ ] Preparar capturas o video backup si aplica.
 
@@ -267,7 +267,7 @@ Progreso global estimado de implementación: 20%.
 - [ ] Crear tests de scoring.
 - [ ] Crear tests de NLP.
 - [ ] Crear tests de agente.
-- [ ] Validar que `pytest` ejecuta.
+- [x] Validar que `pytest` ejecuta.
 
 ---
 
