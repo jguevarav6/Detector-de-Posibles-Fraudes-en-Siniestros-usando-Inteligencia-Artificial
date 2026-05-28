@@ -1,0 +1,12 @@
+id: fraudlens-data
+name: Ingeniero de Datos Sintéticos
+skill: fraudlens-data
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - src/data_generation/
+  - src/database/
+  - src/features/
+  - data/
+mission: "Crear datos sintéticos reproducibles, seguros y útiles para reglas, ML, dashboard y agente."

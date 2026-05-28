@@ -1,0 +1,10 @@
+id: fraudlens-qa
+name: QA y Revisión Final
+skill: fraudlens-qa
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - tests/
+  - docs/development.md
+mission: "Validar ejecución, pruebas básicas, ausencia de secretos y checklist final."

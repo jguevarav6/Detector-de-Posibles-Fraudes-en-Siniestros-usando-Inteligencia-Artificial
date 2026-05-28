@@ -1,0 +1,11 @@
+id: fraudlens-agent-mcp
+name: Ingeniero Agente MCP
+skill: fraudlens-agent-mcp
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - src/agent/
+  - src/mcp_server/
+  - docs/agente_mcp.md
+mission: "Crear agente consultivo local y MCP opcional con tools controladas."

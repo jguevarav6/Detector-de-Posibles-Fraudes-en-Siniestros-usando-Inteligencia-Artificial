@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Environments
+venv/
+.venv/
+env/
+.env
+
+# Local artifacts
+*.sqlite
+*.db
+*.joblib
+data/processed/*.csv
+data/processed/*.json
+data/processed/*.sqlite
+data/processed/*.db
+data/synthetic/*.csv
+
+# OS / editors
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

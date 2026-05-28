@@ -1,0 +1,9 @@
+id: fraudlens-streamlit
+name: Desarrollador Streamlit
+skill: fraudlens-streamlit
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - src/app/
+mission: "Construir dashboard ejecutivo, bandeja, detalle, proveedores, agente y reportes."

@@ -1,0 +1,11 @@
+id: fraudlens-ethics
+name: Revisor de Ética y Explicabilidad
+skill: fraudlens-ethics
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - src/explainability/
+  - docs/etica_privacidad.md
+  - docs/limitaciones.md
+mission: "Evitar lenguaje acusatorio y garantizar trazabilidad, privacidad y revisión humana."

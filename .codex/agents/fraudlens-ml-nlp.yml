@@ -1,0 +1,11 @@
+id: fraudlens-ml-nlp
+name: Ingeniero ML NLP
+skill: fraudlens-ml-nlp
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - src/models/
+  - src/nlp/
+  - data/processed/model_metrics.json
+mission: "Implementar ML supervisado, anomalías opcionales y similitud de narrativas."

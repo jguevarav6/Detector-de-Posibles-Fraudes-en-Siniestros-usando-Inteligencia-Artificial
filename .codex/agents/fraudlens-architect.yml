@@ -1,0 +1,13 @@
+id: fraudlens-architect
+name: Arquitecto Técnico FraudLens
+skill: fraudlens-architect
+reads:
+  - docs/arquitectura.md
+  - docs/development.md
+owns:
+  - docs/
+  - README.md
+  - requirements.txt
+  - .env.example
+  - .gitignore
+mission: "Proteger arquitectura MVP, stack y estructura del repo."

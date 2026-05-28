@@ -1,0 +1,79 @@
+project: FraudLens Claims AI
+mode: hackathon-mvp
+language: es
+
+bootstrap:
+  read_first:
+    - docs/arquitectura.md
+    - docs/development.md
+  source_context:
+    - FraudLens_Claims_AI_Plan_HackIAthon.md
+    - Proyecto.md
+  rule: "Antes de modificar archivos del proyecto, cargar arquitectura y bitácora. Usar los documentos base solo para resolver dudas."
+  context_script: scripts/codex_context.ps1
+
+stack:
+  frontend: Streamlit
+  language: Python 3.11
+  data:
+    - CSV sintéticos
+    - SQLite
+  processing:
+    - Pandas
+    - NumPy
+  visualization: Plotly
+  ml:
+    - Scikit-learn
+    - RandomForestClassifier
+    - LogisticRegression fallback
+    - IsolationForest opcional
+  nlp:
+    - TF-IDF
+    - cosine similarity
+  agent: agent_router local basado en tools
+  mcp: opcional
+  tests: pytest básico
+
+forbidden:
+  - datos reales
+  - credenciales
+  - React
+  - login
+  - roles
+  - microservicios
+  - Docker obligatorio
+  - MySQL u Oracle real obligatorios
+  - FastAPI obligatorio
+  - acusaciones de fraude
+  - rechazo automático de siniestros
+
+skills:
+  - .codex/skills/fraudlens-architect
+  - .codex/skills/fraudlens-streamlit
+  - .codex/skills/fraudlens-data
+  - .codex/skills/fraudlens-ml-nlp
+  - .codex/skills/fraudlens-ethics
+  - .codex/skills/fraudlens-agent-mcp
+  - .codex/skills/fraudlens-qa
+
+agents:
+  config_dir: .codex/agents
+  default_sequence:
+    - fraudlens-architect
+    - fraudlens-data
+    - fraudlens-qa
+
+after_important_change:
+  update:
+    - docs/development.md
+  required_fields:
+    - rama
+    - descripcion_de_commit
+    - tipo_de_cambio
+    - revision_de_seguridad
+    - tarea_completada
+    - tarea_pendiente
+    - progreso_estimado
+  progress_rule: "Informar al usuario tarea hecha, tarea pendiente y porcentaje estimado de avance."
+  security_rule: "Confirmar que no se agregaron datos reales, credenciales, API keys, .env real ni lenguaje acusatorio."
+  git_rule: "Trabajar cada tarea nueva en una rama separada; registrar nombre de rama y descripcion detallada del commit antes de cerrar la tarea."

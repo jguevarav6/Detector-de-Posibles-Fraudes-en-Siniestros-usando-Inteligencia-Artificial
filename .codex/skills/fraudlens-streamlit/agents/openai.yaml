@@ -1,0 +1,4 @@
+interface:
+  display_name: "fraudlens-streamlit"
+  short_description: "Skill operativo para FraudLens Claims AI"
+  default_prompt: "Usa este skill para trabajar en FraudLens Claims AI respetando arquitectura, bitácora y alcance del hackathon."
