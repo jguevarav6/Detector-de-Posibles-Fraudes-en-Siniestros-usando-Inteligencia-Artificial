@@ -53,26 +53,29 @@ def main() -> None:
     PAGES[selected_page](claims)
 
 
-_SHIELD_DATA_URI = (
-    "data:image/svg+xml;utf8,"
-    "<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' "
-    "stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'>"
-    "<path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/>"
-    "<path d='m9 12 2 2 4-4'/></svg>"
-)
+def _shield_data_uri() -> str:
+    """SVG del escudo codificado en base64 para usar sin riesgo de comillas."""
+    import base64
+
+    svg = (
+        b'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" '
+        b'stroke="#ffffff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">'
+        b'<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>'
+        b'<path d="m9 12 2 2 4-4"/></svg>'
+    )
+    return "data:image/svg+xml;base64," + base64.b64encode(svg).decode("ascii")
 
 
 def _brand_html() -> str:
+    shield = _shield_data_uri()
     return f"""
     <div style="padding:4px 0 18px; border-bottom:1px solid rgba(255,255,255,.10);
                 margin-bottom:14px;">
       <div style="display:flex; align-items:center; gap:12px;">
         <div style="width:44px; height:44px; border-radius:11px;
-                    background-image:url('{_SHIELD_DATA_URI}'),
-                                     linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-                    background-repeat:no-repeat;
-                    background-position:center;
-                    background-size:24px 24px, cover;
+                    background:
+                      url({shield}) center / 24px 24px no-repeat,
+                      linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
                     box-shadow:0 6px 20px rgba(37,99,235,.45),
                                inset 0 0 0 1px rgba(255,255,255,.18);
                     flex-shrink:0;"></div>
