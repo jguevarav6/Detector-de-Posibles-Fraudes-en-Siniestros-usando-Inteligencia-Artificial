@@ -54,18 +54,18 @@ Flujo obligatorio de Git:
 
 | Área | Estado | Progreso |
 |---|---|---:|
-| Documentación base | En progreso | 90% |
+| Documentación base | En progreso | 95% |
 | Integración Codex skills/agentes | Completo | 100% |
 | Tablero de tareas por rol | Completo | 100% |
 | Estructura de repo ejecutable | Completo | 100% |
 | Datos sintéticos | En progreso | 80% |
-| Reglas y score | Pendiente | 0% |
-| ML/NLP | Pendiente | 0% |
-| Dashboard Streamlit | En progreso | 55% |
-| Agente local/MCP | Pendiente | 0% |
-| QA/demo/pitch | En progreso | 30% |
+| Reglas y score | En progreso | 70% |
+| ML/NLP | En progreso | 55% |
+| Dashboard Streamlit | En progreso | 78% |
+| Agente local/MCP | En progreso | 55% |
+| QA/demo/pitch | En progreso | 60% |
 
-Progreso global estimado: 42%.
+Progreso global estimado: 70%.
 
 ## Plan de trabajo por fases
 
@@ -74,7 +74,7 @@ Progreso global estimado: 42%.
 - Crear estructura de carpetas.
 - Crear `requirements.txt`, `.env.example`, `.gitignore` y `README.md`.
 - Generar CSV sintéticos.
-- Crear SQLite local.
+- Crear MySQL local.
 - Validar que no existan datos reales ni credenciales.
 
 ### Fase 2: reglas y score
@@ -142,7 +142,7 @@ Progreso global estimado: 42%.
 - [ ] `setup_demo.py` prepara datos y resultados desde cero.
 - [ ] `streamlit run src/app/main.py` abre la demo.
 - [ ] Existen CSV sintéticos.
-- [ ] Existe SQLite local o CSV procesado equivalente.
+- [ ] Existe MySQL local o CSV procesado equivalente.
 - [ ] El dashboard muestra KPIs.
 - [ ] La bandeja ordena casos por `score_final`.
 - [ ] El detalle muestra reglas, score y explicación.
@@ -163,7 +163,7 @@ Progreso global estimado: 42%.
 - El frontend será Streamlit.
 - El lenguaje principal será Python 3.11.
 - Los datos serán sintéticos.
-- La persistencia será CSV + SQLite.
+- La persistencia será MySQL + CSV procesados.
 - El procesamiento usará Pandas y NumPy.
 - Los gráficos usarán Plotly.
 - El modelo supervisado principal será RandomForestClassifier.
@@ -202,7 +202,7 @@ Registrar aquí errores detectados que aún no estén resueltos.
 
 - [ ] Crear estructura base del repo.
 - [ ] Crear generador de datos sintéticos.
-- [ ] Crear SQLite.
+- [ ] Crear MySQL.
 - [ ] Implementar reglas.
 - [ ] Implementar scoring.
 - [ ] Implementar ML/NLP.
@@ -229,7 +229,7 @@ pytest
 - Tipo de cambio: documentación, repo/config.
 - Tarea: Crear documentación base para orientar desarrollo del MVP.
 - Archivos modificados: `docs/arquitectura.md`, `docs/development.md`, `docs/skills_codex_fraudlens.md`.
-- Decisión tomada: Mantener arquitectura liviana con Streamlit, Python, CSV, SQLite, reglas, ML/NLP y agente local.
+- Decisión tomada: Mantener arquitectura liviana con Streamlit, Python, CSV, MySQL, reglas, ML/NLP y agente local.
 - Revisión de seguridad: No se agregaron datos reales, credenciales ni decisiones automáticas.
 - Problema encontrado: Los documentos base son extensos y contienen contenido repetido.
 - Solución aplicada: Consolidar decisiones y estructura sin reescribir todo el material fuente.
@@ -274,7 +274,7 @@ pytest
 - Tipo de cambio: repo/config, documentacion, backend, frontend, datos, ml-nlp, agente, qa, seguridad.
 - Tarea: Crear toda la estructura de archivos del proyecto sin implementar lógica de negocio.
 - Archivos modificados: `README.md`, `requirements.txt`, `.env.example`, `.gitignore`, `setup_demo.py`, `src/`, `data/`, `tests/`, `notebooks/`, `presentation/`, `docs/estructura_repo.md`, `docs/tareas.md`, `docs/development.md`.
-- Decisión tomada: Crear placeholders por módulo para conectar arquitectura, responsabilidades y futuras fases, manteniendo Streamlit + Python + CSV/SQLite + Scikit-learn + agente local.
+- Decisión tomada: Crear placeholders por módulo para conectar arquitectura, responsabilidades y futuras fases, manteniendo Streamlit + Python + CSV/MySQL + Scikit-learn + agente local.
 - Revisión de seguridad: No se agregaron datos reales, credenciales, API keys, `.env` real, lógica de acusación ni rechazo automático.
 - Problema encontrado: El repo tenía documentación y configuración Codex, pero no la estructura ejecutable base del MVP.
 - Solución aplicada: Crear carpetas y archivos mínimos por capa con docstrings y documentación de responsabilidad, sin lógica de negocio.
@@ -292,7 +292,7 @@ pytest
 - Tarea: Inicializar Git, crear rama `main`, configurar remoto GitHub y subir el estado actual del proyecto.
 - Archivos modificados: `docs/development.md`, `.codex/fraudlens.yml`.
 - Decisión tomada: Usar `main` como rama estable inicial; las siguientes tareas deben ir en ramas separadas por funcionalidad.
-- Revisión de seguridad: Antes del commit se confirma que no existe `.env` real, credenciales, bases SQLite, CSV generados ni datos reales.
+- Revisión de seguridad: Antes del commit se confirma que no existe `.env` real, credenciales, bases MySQL con datos reales, CSV generados ni datos reales.
 - Problema encontrado: La carpeta local aún no estaba inicializada como repositorio Git.
 - Solución aplicada: Inicializar repo local y preparar push al remoto indicado por el usuario.
 - Tarea completada: Repo local inicializado en `main`, remoto configurado y commit inicial creado.
@@ -351,19 +351,70 @@ pytest
 - Progreso estimado: 34%.
 - Siguiente paso: Subir rama e integrar a `main`.
 
-## 2026-05-27 - Datos sintéticos y SQLite local
+## 2026-05-27 - Datos sintéticos y base local
 
 - Responsable: Codex.
 - Tipo de cambio: datos, backend, qa, documentacion, seguridad.
 - Rama: feature/datos-sinteticos.
-- Descripción de commit: Implementar generador reproducible de CSV sintéticos, construcción de SQLite local, consultas básicas, orquestación en `setup_demo.py`, documentación del modelo de datos y pruebas de generación/base.
-- Tarea: Crear dataset sintético base y SQLite local para reemplazar gradualmente el fallback demo del frontend.
+- Descripción de commit: Implementar generador reproducible de CSV sintéticos, construcción de base local, consultas básicas, orquestación en `setup_demo.py`, documentación del modelo de datos y pruebas de generación/base.
+- Tarea: Crear dataset sintético base y base local para reemplazar gradualmente el fallback demo del frontend.
 - Archivos modificados: `src/data_generation/generate_synthetic_data.py`, `src/database/build_database.py`, `src/database/queries.py`, `setup_demo.py`, `tests/test_synthetic_data_generation.py`, `tests/test_database_build.py`, `docs/modelo_datos.md`, `docs/development.md`, `docs/tareas.md`.
-- Decisión tomada: Generar artefactos locales reproducibles con semilla fija y mantener CSV/SQLite fuera de Git mediante `.gitignore`.
+- Decisión tomada: Generar artefactos locales reproducibles con semilla fija y mantener CSV procesados fuera de Git mediante `.gitignore`.
 - Revisión de seguridad: No se usaron datos reales, credenciales, nombres, teléfonos, correos, documentos ni placas reales. Los identificadores son sintéticos y anónimos.
 - Problema encontrado: El repo solo tenía placeholders de datos y la UI dependía de fallback demo.
-- Solución aplicada: Crear generador con entidades mínimas, patrones de riesgo sintéticos y SQLite local con tablas `claims`, `policies`, `insured`, `vehicles`, `providers`, `documents` y `risk_scores`.
-- Tarea completada: `setup_demo.py` genera CSV sintéticos y SQLite local; tests de datos/base pasan.
+- Solución aplicada: Crear generador con entidades mínimas, patrones de riesgo sintéticos y base local con tablas `claims`, `policies`, `insured`, `vehicles`, `providers`, `documents` y `risk_scores`.
+- Tarea completada: `setup_demo.py` genera CSV sintéticos y base local; tests de datos/base pasan.
 - Tarea pendiente: Construir features, reglas y `scored_claims.csv` para alimentar directamente el dashboard.
 - Progreso estimado: 42%.
 - Siguiente paso: Commit, subir rama e integrar a `main`.
+
+## 2026-05-28 - Scoring hibrido, ML/NLP y agente local
+
+- Responsable: Codex.
+- Tipo de cambio: backend, datos, ml-nlp, agente, frontend, qa, documentacion, seguridad.
+- Rama: feature/mysql-support.
+- Descripción de commit: Implementar pipeline reproducible de features, reglas, ML, anomalias, NLP, score final, explicaciones, agente local y pruebas minimas.
+- Tarea: Pasar de datos sinteticos sin score a una demo end-to-end con `scored_claims.csv` compatible con Streamlit.
+- Archivos modificados: `setup_demo.py`, `src/database/build_database.py`, `src/features/build_features.py`, `src/rules/fraud_rules.py`, `src/nlp/narrative_similarity.py`, `src/models/`, `src/scoring/scoring_service.py`, `src/explainability/explain_score.py`, `src/agent/`, `src/app/pages/agent_chat.py`, `tests/`, `docs/tareas.md`, `docs/development.md`.
+- Decisión tomada: Usar MySQL como ruta principal de demo y producir un contrato enriquecido para UI, no solo una tabla `risk_scores`.
+- Revisión de seguridad: No se agregaron datos reales, credenciales, API keys ni `.env` real. Las explicaciones mantienen lenguaje de alerta para revisión humana y no confirman fraude.
+- Problema encontrado: `src/database/build_database.py` estaba eliminado en el worktree y `risk_scores` estaba vacio; la UI fallaria si `scored_claims.csv` no incluia columnas enriquecidas.
+- Solución aplicada: Restaurar `build_database.py`, crear features con joins, reglas trazables, TF-IDF, RandomForest con fallback LogisticRegression, IsolationForest, score ponderado, explicaciones, agente local y pruebas.
+- Tarea completada: `python setup_demo.py` genera 1000 siniestros procesados, `data/processed/scored_claims.csv`, `risk_scores.csv`, modelos y `model_metrics.json`; `pytest` pasa.
+- Tarea pendiente: Pulir reportes de dominio, ampliar docs de reglas/IA/etica, completar consultas SQL para dashboard/agente y decidir si MCP se implementa como diferenciador.
+- Progreso estimado: 60%.
+- Siguiente paso: Ensayar flujo Streamlit completo y preparar documentacion/pitch de uso de IA.
+
+## 2026-05-28 - Correccion a MySQL y mejora visual de Streamlit
+
+- Responsable: Codex.
+- Tipo de cambio: backend, datos, frontend, qa, documentacion, seguridad.
+- Rama: feature/mysql-support.
+- Descripción de commit: Cambiar la base operativa de demo a MySQL, actualizar consultas y pruebas, y mejorar la experiencia visual del dashboard Streamlit.
+- Tarea: Corregir la ruta de persistencia para usar MySQL y elevar la calidad del frontend.
+- Archivos modificados: `.env.example`, `README.md`, `docs/arquitectura.md`, `docs/development.md`, `docs/tareas.md`, `setup_demo.py`, `src/database/`, `src/scoring/scoring_service.py`, `src/app/`, `tests/`.
+- Decisión tomada: MySQL queda como base principal de la demo local; CSV procesado queda como contrato de lectura para Streamlit y respaldo reproducible.
+- Revisión de seguridad: No se agregaron datos reales ni credenciales versionadas. Los defaults de MySQL son solo para demo local; `.env.example` mantiene placeholders.
+- Problema encontrado: El avance anterior mantenia SQLite como ruta principal y el frontend tenia una presentacion demasiado basica para demo.
+- Solución aplicada: `setup_demo.py` crea/carga `fraudlens_claims_ai` en MySQL, `risk_scores` queda poblada en MySQL, las consultas usan MySQL, y Streamlit incorpora sidebar de producto, KPIs, filtros avanzados, tabs de detalle, proveedores enriquecidos y reportes operativos.
+- Tarea completada: MySQL verificado con 1000 `claims` y 1000 `risk_scores`; `pytest` pasa; Streamlit responde en `http://localhost:8501`.
+- Tarea pendiente: Ensayar visualmente el flujo completo, preparar pitch y decidir si se implementa MCP como diferenciador.
+- Progreso estimado: 65%.
+- Siguiente paso: Documentar uso de IA/reglas y crear script de demo.
+
+## 2026-05-28 - Documentacion de IA, reglas, etica y demo
+
+- Responsable: Codex.
+- Tipo de cambio: documentacion, ml-nlp, agente, qa, seguridad.
+- Rama: feature/mysql-support.
+- Descripción de commit: Completar documentacion de uso de IA, reglas, etica, limitaciones, agente y script de demo alineada con MySQL y Streamlit.
+- Tarea: Reemplazar placeholders documentales por contenido real defendible ante jurado.
+- Archivos modificados: `docs/uso_ia.md`, `docs/reglas_negocio.md`, `docs/etica_privacidad.md`, `docs/limitaciones.md`, `docs/demo_script.md`, `docs/agente_mcp.md`, `docs/development.md`, `docs/tareas.md`.
+- Decisión tomada: Documentar MCP como diferenciador opcional y mantener agente local como capacidad principal del MVP.
+- Revisión de seguridad: Los documentos refuerzan que el sistema prioriza revision humana, no confirma fraude y no rechaza siniestros automaticamente.
+- Problema encontrado: La documentacion clave seguia como placeholder y no explicaba el estado real de reglas, ML, NLP, agente ni demo MySQL.
+- Solución aplicada: Completar documentos con formula de score, reglas implementadas, metricas generadas, limites eticos, falsos positivos, flujo de demo y alcance MCP.
+- Tarea completada: Documentacion tecnica y de demo alineada con el codigo actual.
+- Tarea pendiente: Preparar presentacion ejecutiva y, si hay tiempo, implementar servidor MCP opcional.
+- Progreso estimado: 70%.
+- Siguiente paso: Commit, push y ensayo final de demo.

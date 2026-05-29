@@ -24,7 +24,7 @@ def ethics_notice() -> None:
     st.markdown(
         """
         <div class="fl-alert">
-        FraudLens genera alertas explicables para revisión humana. No acusa fraude,
+        FraudLens genera alertas explicables para revision humana. No acusa fraude,
         no rechaza siniestros y no reemplaza el criterio del analista.
         </div>
         """,
@@ -39,6 +39,25 @@ def kpi_card(label: str, value: str, hint: str = "") -> None:
           <div class="label">{label}</div>
           <div class="value">{value}</div>
           <div class="hint">{hint}</div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
+def section_title(title: str, hint: str = "") -> None:
+    detail = f'<div class="fl-muted">{hint}</div>' if hint else ""
+    st.markdown(f'<div class="fl-section-title">{title}</div>{detail}', unsafe_allow_html=True)
+
+
+def score_breakdown(row: pd.Series) -> None:
+    st.markdown(
+        f"""
+        <div class="fl-score-grid">
+          <div class="fl-score-item"><div class="label">Reglas</div><div class="value">{float(row.get("score_reglas", 0)):.0f}</div></div>
+          <div class="fl-score-item"><div class="label">ML</div><div class="value">{float(row.get("score_ml", 0)):.0f}</div></div>
+          <div class="fl-score-item"><div class="label">Anomalia</div><div class="value">{float(row.get("score_anomalia", 0)):.0f}</div></div>
+          <div class="fl-score-item"><div class="label">NLP</div><div class="value">{float(row.get("score_nlp", 0)):.0f}</div></div>
         </div>
         """,
         unsafe_allow_html=True,
