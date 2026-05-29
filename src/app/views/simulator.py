@@ -14,7 +14,6 @@ en la base.
 
 from __future__ import annotations
 
-import io
 import json
 from pathlib import Path
 
@@ -154,6 +153,9 @@ def _render_upload_panel() -> None:
         st.error(f"Faltan columnas requeridas: {', '.join(missing)}.")
         return
 
+    if not _coerce_numeric(df, REQUIRED_FIELDS):
+        return
+
     if len(df) > 200:
         st.warning(f"El archivo tiene {len(df)} filas. Procesando solo las primeras 200.")
         df = df.head(200)
@@ -182,7 +184,9 @@ def _render_upload_panel() -> None:
             }
         )
 
-    out = pd.DataFrame(results).sort_values("score_final", ascending=False)
+    out = pd.DataFrame(results)
+    out.index = df.index
+    out = out.sort_values("score_final", ascending=False)
 
     c1, c2, c3 = st.columns(3)
     c1.metric("Casos evaluados", len(out))
@@ -208,16 +212,17 @@ def _render_upload_panel() -> None:
 
     # Detalle ampliado del primer caso (el de mayor score)
     if not out.empty:
+        top_idx = out.index[0]
         first = out.iloc[0]
         st.divider()
         section_title(f"Desglose del caso con mayor score: {first['id']}")
         detail = agent_tools.simulate_claim_score(
             monto_reclamado=float(first["monto_reclamado"]),
-            suma_asegurada=float(df.iloc[0]["suma_asegurada"]),
-            dias_desde_inicio_poliza=int(df.iloc[0]["dias_desde_inicio_poliza"]),
-            dias_entre_ocurrencia_reporte=int(df.iloc[0]["dias_entre_ocurrencia_reporte"]),
-            documentos_completos=_truthy(df.iloc[0].get("documentos_completos", True)),
-            ramo=str(df.iloc[0].get("ramo", "Vehiculos")),
+            suma_asegurada=float(df.loc[top_idx, "suma_asegurada"]),
+            dias_desde_inicio_poliza=int(df.loc[top_idx, "dias_desde_inicio_poliza"]),
+            dias_entre_ocurrencia_reporte=int(df.loc[top_idx, "dias_entre_ocurrencia_reporte"]),
+            documentos_completos=_truthy(df.loc[top_idx].get("documentos_completos", True)),
+            ramo=str(df.loc[top_idx].get("ramo", "Vehiculos")),
         )
         _render_result(detail)
 
@@ -300,11 +305,25 @@ def _parse_upload(uploaded) -> pd.DataFrame:
     if name.endswith(".csv"):
         return pd.read_csv(uploaded)
     if name.endswith(".json"):
-        data = json.load(io.TextIOWrapper(uploaded, encoding="utf-8"))
+        raw = uploaded.read()
+        if isinstance(raw, bytes):
+            raw = raw.decode("utf-8")
+        data = json.loads(raw)
         if isinstance(data, dict):
             data = [data]
         return pd.DataFrame(data)
     raise ValueError("Solo se aceptan archivos .csv o .json.")
+
+
+def _coerce_numeric(df: pd.DataFrame, columns) -> bool:
+    # Convierte columnas requeridas a numerico; reporta y aborta si hay no-numericos.
+    for col in columns:
+        coerced = pd.to_numeric(df[col], errors="coerce")
+        if coerced.isna().any():
+            st.error(f"La columna {col} contiene valores no numericos. Revisa el archivo.")
+            return False
+        df[col] = coerced
+    return True
 
 
 def _truthy(value) -> bool:

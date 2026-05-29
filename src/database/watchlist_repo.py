@@ -8,6 +8,7 @@ funciones que devuelven `pd.DataFrame`.
 
 from __future__ import annotations
 
+import logging
 from functools import lru_cache
 from pathlib import Path
 
@@ -15,6 +16,8 @@ import pandas as pd
 
 from src.database.settings import MySQLSettings, watchlist_settings
 
+
+logger = logging.getLogger("fraudlens.watchlist")
 
 WATCHLIST_CSV_DIR = Path("data/watchlist")
 
@@ -77,7 +80,8 @@ def _read_from_mysql(table: str, config: MySQLSettings) -> pd.DataFrame | None:
     try:
         import mysql.connector  # noqa: F401
         from src.database.build_database import _connect
-    except Exception:
+    except Exception as exc:
+        logger.warning("MySQL no disponible para %s, usando CSV: %s", table, exc)
         return None
     try:
         with _connect(config, database=config.database) as connection:
@@ -86,7 +90,8 @@ def _read_from_mysql(table: str, config: MySQLSettings) -> pd.DataFrame | None:
             rows = cursor.fetchall()
             columns = [item[0] for item in cursor.description]
             return pd.DataFrame(rows, columns=columns)
-    except Exception:
+    except Exception as exc:
+        logger.warning("Lectura MySQL fallida para %s, usando CSV: %s", table, exc)
         return None
 
 

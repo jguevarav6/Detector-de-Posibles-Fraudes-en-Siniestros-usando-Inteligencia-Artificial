@@ -321,13 +321,15 @@ def pareto_red_providers(coverage: float = 0.8) -> dict:
     )
     total = int(ranking["rojos"].sum())
     threshold = total * coverage
-    accumulated = 0
-    selected: list[dict] = []
-    for _, row in ranking.iterrows():
-        accumulated += int(row["rojos"])
-        selected.append({"proveedor": row["proveedor"], "rojos": int(row["rojos"]), "acumulado": accumulated})
-        if accumulated >= threshold:
-            break
+    ranking["acumulado"] = ranking["rojos"].cumsum()
+    selected_mask = ranking["acumulado"] < threshold
+    cutoff_idx = int(selected_mask.sum())
+    selected_df = ranking.iloc[: cutoff_idx + 1]
+    accumulated = int(selected_df["acumulado"].iloc[-1])
+    selected = [
+        {"proveedor": rec["proveedor"], "rojos": int(rec["rojos"]), "acumulado": int(rec["acumulado"])}
+        for rec in selected_df[["proveedor", "rojos", "acumulado"]].to_dict("records")
+    ]
     return {
         "cobertura_objetivo": coverage,
         "rojos_totales":      total,

@@ -104,15 +104,17 @@ def _connect(config: MySQLSettings, database: str | None) -> MySQLConnection:
 
 
 def _replace_table(connection: MySQLConnection, cursor: Any, table: str, df: pd.DataFrame) -> None:
+    tmp = f"{table}__new"
+    cursor.execute(f"DROP TABLE IF EXISTS `{tmp}`")
+    cursor.execute(_create_table_sql(tmp, df))
+    if not df.empty:
+        columns = list(df.columns)
+        placeholders = ", ".join(["%s"] * len(columns))
+        column_sql = ", ".join(f"`{column}`" for column in columns)
+        values = [_clean_row(row) for row in df[columns].itertuples(index=False, name=None)]
+        cursor.executemany(f"INSERT INTO `{tmp}` ({column_sql}) VALUES ({placeholders})", values)
     cursor.execute(f"DROP TABLE IF EXISTS `{table}`")
-    cursor.execute(_create_table_sql(table, df))
-    if df.empty:
-        return
-    columns = list(df.columns)
-    placeholders = ", ".join(["%s"] * len(columns))
-    column_sql = ", ".join(f"`{column}`" for column in columns)
-    values = [_clean_row(row) for row in df[columns].itertuples(index=False, name=None)]
-    cursor.executemany(f"INSERT INTO `{table}` ({column_sql}) VALUES ({placeholders})", values)
+    cursor.execute(f"RENAME TABLE `{tmp}` TO `{table}`")
     connection.commit()
 
 
@@ -120,7 +122,8 @@ def _create_table_sql(table: str, df: pd.DataFrame) -> str:
     columns = []
     for column in df.columns:
         columns.append(f"`{column}` {_mysql_type(df[column])}")
-    if table == "risk_scores" and "id_siniestro" in df.columns:
+    base = table[:-5] if table.endswith("__new") else table
+    if base == "risk_scores" and "id_siniestro" in df.columns:
         columns.append("PRIMARY KEY (`id_siniestro`)")
     return f"CREATE TABLE `{table}` ({', '.join(columns)}) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4"
 

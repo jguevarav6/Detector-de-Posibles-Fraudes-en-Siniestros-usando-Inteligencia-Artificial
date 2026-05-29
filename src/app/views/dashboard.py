@@ -19,6 +19,11 @@ from src.app.styles import (
 )
 
 
+@st.cache_data(ttl=300, show_spinner=False)
+def _cached_watchlist_summary():
+    return agent_tools.watchlist_summary()
+
+
 def render(claims: pd.DataFrame) -> None:
     total = len(claims)
     red = int((claims["nivel_riesgo"] == "Rojo").sum())
@@ -33,7 +38,7 @@ def render(claims: pd.DataFrame) -> None:
         f"{total:,} siniestros analizados. {red} requieren atencion inmediata y {yellow} revision priorizada.",
     )
 
-    cross = agent_tools.watchlist_summary()
+    cross = _cached_watchlist_summary()
     if "claims_con_alerta_compliance" in cross:
         st.html(
             f"""
