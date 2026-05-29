@@ -21,11 +21,11 @@ RISK_COLORS_SOFT = {
 
 
 def inject_global_styles() -> None:
-    """Inyecta CSS global. Usa st.markdown porque st.html mete el contenido
-    en iframe interno donde el <style> no afecta al documento padre."""
+    """Inyecta CSS global. Usa st.html porque en Streamlit 1.58
+    st.markdown filtra los tags <style> y los muestra como texto."""
     import streamlit as st
 
-    st.markdown(
+    st.html(
         """
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -433,8 +433,7 @@ def inject_global_styles() -> None:
           .fl-score-grid { grid-template-columns: 1fr 1fr; gap:8px; }
         }
         </style>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
