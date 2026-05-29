@@ -12,8 +12,8 @@ from src.app.styles import RISK_COLORS
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Proveedores",
-        "Concentracion de alertas por proveedor para apoyar revision operativa.",
+        "Concentracion por proveedor",
+        "Talleres, clinicas y peritos con mayor volumen de alertas. Util para detectar redes recurrentes.",
     )
     ethics_notice()
 

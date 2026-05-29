@@ -19,12 +19,6 @@ from src.app.styles import (
 
 
 def render(claims: pd.DataFrame) -> None:
-    page_header(
-        "Dashboard ejecutivo",
-        "Priorizacion operativa de siniestros con senales explicables para revision humana.",
-    )
-    ethics_notice()
-
     total = len(claims)
     red = int((claims["nivel_riesgo"] == "Rojo").sum())
     yellow = int((claims["nivel_riesgo"] == "Amarillo").sum())
@@ -32,6 +26,12 @@ def render(claims: pd.DataFrame) -> None:
     amount_total = float(claims["monto_reclamado"].sum())
     amount_red = float(claims.loc[claims["nivel_riesgo"] == "Rojo", "monto_reclamado"].sum())
     review_rate = (red + yellow) / total * 100 if total else 0
+
+    page_header(
+        "Operacion del dia",
+        f"{total:,} siniestros analizados. {red} requieren atencion inmediata y {yellow} revision priorizada.",
+    )
+    ethics_notice()
 
     cols = st.columns(6)
     metrics = [

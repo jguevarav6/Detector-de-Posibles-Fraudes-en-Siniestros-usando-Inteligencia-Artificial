@@ -24,8 +24,8 @@ QUICK_QUESTIONS = [
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Agente consultivo",
-        "Consulta patrones operativos del dataset procesado. El agente usa tools locales controladas y no toma decisiones de pago.",
+        "Asistente FraudLens",
+        "Pregunta en lenguaje natural o usa los accesos rapidos. Responde con datos del dataset procesado, sin recalcular scores.",
     )
     ethics_notice()
 

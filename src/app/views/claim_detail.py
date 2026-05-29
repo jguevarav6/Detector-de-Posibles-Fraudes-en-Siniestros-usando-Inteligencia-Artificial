@@ -11,8 +11,8 @@ from src.app.styles import RISK_COLORS, RISK_COLORS_SOFT
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Detalle del siniestro",
-        "Explicacion trazable del score, reglas activadas, documentos y senales textuales para revision humana.",
+        "Expediente del caso",
+        "Score desglosado, reglas activadas, documentos y narrativas similares. Toda senal es trazable.",
     )
     ethics_notice()
 

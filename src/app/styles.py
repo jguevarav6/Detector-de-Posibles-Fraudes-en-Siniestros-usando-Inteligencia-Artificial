@@ -427,26 +427,42 @@ def inject_global_styles() -> None:
     )
 
 
-def icon_shield() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg>"""
+def _svg(body: str, color: str = "#ffffff", width: int = 24, stroke: float = 2.0) -> str:
+    return (
+        f'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" '
+        f'width="{width}" height="{width}" fill="none" stroke="{color}" '
+        f'stroke-width="{stroke}" stroke-linecap="round" stroke-linejoin="round" '
+        f'style="display:block">{body}</svg>'
+    )
 
-def icon_search() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>"""
 
-def icon_alert() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m10.29 3.86-8.55 14.83A2 2 0 0 0 3.46 22h17.08a2 2 0 0 0 1.72-3.31L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>"""
+def icon_shield(color: str = "#ffffff", width: int = 26) -> str:
+    return _svg('<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/>', color, width, 2.1)
 
-def icon_alert_circle() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/></svg>"""
 
-def icon_check() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>"""
+def icon_search(color: str = "#1d4ed8", width: int = 16) -> str:
+    return _svg('<circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/>', color, width, 2)
 
-def icon_dollar() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>"""
 
-def icon_trending() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>"""
+def icon_alert(color: str = "#b91c1c", width: int = 16) -> str:
+    return _svg('<path d="m10.29 3.86-8.55 14.83A2 2 0 0 0 3.46 22h17.08a2 2 0 0 0 1.72-3.31L13.71 3.86a2 2 0 0 0-3.42 0Z"/><path d="M12 9v4"/><path d="M12 17h.01"/>', color, width, 2)
 
-def icon_info() -> str:
-    return """<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>"""
+
+def icon_alert_circle(color: str = "#b45309", width: int = 16) -> str:
+    return _svg('<circle cx="12" cy="12" r="10"/><path d="M12 8v4"/><path d="M12 16h.01"/>', color, width, 2)
+
+
+def icon_check(color: str = "#047857", width: int = 16) -> str:
+    return _svg('<circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/>', color, width, 2)
+
+
+def icon_dollar(color: str = "#5b6677", width: int = 16) -> str:
+    return _svg('<line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', color, width, 2)
+
+
+def icon_trending(color: str = "#1d4ed8", width: int = 16) -> str:
+    return _svg('<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>', color, width, 2)
+
+
+def icon_info(color: str = "#ffffff", width: int = 14) -> str:
+    return _svg('<circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/>', color, width, 2.5)

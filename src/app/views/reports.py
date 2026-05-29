@@ -11,8 +11,8 @@ from src.app.components import ethics_notice, format_currency, page_header, sect
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Reportes",
-        "Exportacion de bandejas, resumen ejecutivo y evidencia para revision humana.",
+        "Exportar y resumen",
+        "Descarga CSV de casos criticos y revisables; revisa el resumen ejecutivo y el checklist de demo.",
     )
     ethics_notice()
 

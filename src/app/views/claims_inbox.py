@@ -10,8 +10,8 @@ from src.app.components import ethics_notice, format_currency, level_order, page
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Bandeja de siniestros",
-        "Filtro operativo para ordenar casos por prioridad, monto, cobertura y concentracion de senales.",
+        "Casos a revisar",
+        "Filtra por ciudad, ramo, proveedor o monto. La tabla se ordena por prioridad: rojo primero, luego amarillo y verde.",
     )
     ethics_notice()
 
