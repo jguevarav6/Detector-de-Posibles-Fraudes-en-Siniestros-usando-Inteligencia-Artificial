@@ -5,14 +5,25 @@ from __future__ import annotations
 import streamlit as st
 
 from src.app.demo_data import load_claims
-from src.app.views import agent_chat, claim_detail, claims_inbox, dashboard, providers, reports
-from src.app.styles import icon_shield, inject_global_styles
+from src.app.views import (
+    agent_chat,
+    claim_detail,
+    claims_inbox,
+    dashboard,
+    providers,
+    reports,
+    simulator,
+    watchlist,
+)
+from src.app.styles import inject_global_styles
 
 
 PAGES = {
     "Dashboard": dashboard.render,
     "Bandeja": claims_inbox.render,
     "Detalle": claim_detail.render,
+    "Watchlist (DB2)": watchlist.render,
+    "Simulador": simulator.render,
     "Proveedores": providers.render,
     "Agente": agent_chat.render,
     "Reportes": reports.render,
@@ -32,10 +43,10 @@ def main() -> None:
 
     with st.sidebar:
         st.html(
-            f"""
+            """
             <div class="fl-brand">
               <div class="fl-brand-row">
-                <div class="fl-brand-mark">{icon_shield()}</div>
+                <div class="fl-brand-mark"></div>
                 <div>
                   <div class="fl-brand-title">FraudLens</div>
                   <div class="fl-brand-subtitle">Claims AI</div>

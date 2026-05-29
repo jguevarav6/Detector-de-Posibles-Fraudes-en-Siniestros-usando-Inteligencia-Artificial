@@ -6,6 +6,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
+from src.agent import agent_tools
 from src.app.components import ethics_notice, format_currency, kpi_card, page_header, section_title
 from src.app.styles import (
     RISK_COLORS,
@@ -31,6 +32,28 @@ def render(claims: pd.DataFrame) -> None:
         "Operacion del dia",
         f"{total:,} siniestros analizados. {red} requieren atencion inmediata y {yellow} revision priorizada.",
     )
+
+    cross = agent_tools.watchlist_summary()
+    if "claims_con_alerta_compliance" in cross:
+        st.html(
+            f"""
+            <div style="background:linear-gradient(90deg,#fff7ed 0%,#ffffff 100%);
+                        border:1px solid #fdba74; border-left:5px solid #ea580c;
+                        border-radius:12px; padding:12px 18px; margin-bottom:14px;
+                        display:flex; gap:14px; align-items:center; flex-wrap:wrap;">
+              <div style="background:#ea580c; color:white; font-weight:800;
+                          padding:4px 10px; border-radius:6px; font-size:.72rem;
+                          letter-spacing:.08em; text-transform:uppercase;">Cruce DB1 + DB2</div>
+              <div style="color:#7c2d12; font-size:.95rem; font-weight:500;">
+                <strong style="font-size:1.15rem; font-feature-settings:'tnum';">{cross['claims_con_alerta_compliance']}</strong>
+                siniestros activos cruzan con la watchlist de compliance &middot;
+                <strong style="color:#d33232;">{cross['claims_rojos_con_alerta']} rojos</strong>
+                requieren cruce prioritario.
+              </div>
+            </div>
+            """
+        )
+
     ethics_notice()
 
     cols = st.columns(6)

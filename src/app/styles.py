@@ -112,12 +112,13 @@ def inject_global_styles() -> None:
         .fl-brand-row { display:flex; align-items:center; gap:12px; }
         .fl-brand-mark {
           width:44px; height:44px; border-radius:11px;
-          background: linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
-          display:flex; align-items:center; justify-content:center;
+          background:
+            url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ffffff' stroke-width='2.2' stroke-linecap='round' stroke-linejoin='round'><path d='M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z'/><path d='m9 12 2 2 4-4'/></svg>") center / 24px 24px no-repeat,
+            linear-gradient(135deg, #2563eb 0%, #06b6d4 100%);
           box-shadow: 0 6px 20px rgba(37,99,235,.45), inset 0 0 0 1px rgba(255,255,255,.18);
-          position:relative;
+          flex-shrink: 0;
         }
-        .fl-brand-mark svg { width:24px; height:24px; color:white; }
+        .fl-brand-mark svg { width:24px; height:24px; }
         .fl-brand-title { font-size:1.18rem; font-weight:800; line-height:1.1; color:#fff; letter-spacing:-.02em; }
         .fl-brand-subtitle {
           color:#94a0b3; font-size:.72rem; margin-top:3px; font-weight:600;

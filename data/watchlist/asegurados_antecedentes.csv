@@ -1,0 +1,36 @@
+id_asegurado,tipo_antecedente,reclamos_previos,fecha_ultimo_reclamo,motivo,nivel_alerta,estado
+ASE-0006,Vida,5,2025-03-12,Historico de reclamos por robo,Alerta alta,En revision
+ASE-0174,Vida,8,2025-06-19,Multiples polizas activas,Alerta alta,Activo
+ASE-0284,Vehicular,5,2026-03-04,Antecedente de monto atipico,Alerta media,Activo
+ASE-0214,Salud,2,2026-03-22,Multiples polizas activas,Alerta media,Activo
+ASE-0138,Patrimonial,8,2026-07-10,Multiples polizas activas,Alerta alta,Activo
+ASE-0319,Patrimonial,9,2025-08-18,Antecedente de monto atipico,Alerta media,Activo
+ASE-0067,Vehicular,7,2026-07-18,Reincidencia en cobertura medica,Alerta media,Activo
+ASE-0023,Vehicular,5,2026-06-23,Antecedente de monto atipico,Alerta baja,Activo
+ASE-0270,Patrimonial,9,2025-06-13,Reincidencia en cobertura medica,Alerta alta,Activo
+ASE-0123,Patrimonial,3,2025-10-23,Historico de reclamos por robo,Alerta baja,Activo
+ASE-0057,Patrimonial,8,2024-09-10,Multiples polizas activas,Alerta media,En revision
+ASE-0083,Patrimonial,4,2026-02-17,Reincidencia en cobertura medica,Alerta media,Activo
+ASE-0135,Salud,6,2025-05-15,Antecedente de monto atipico,Alerta baja,En revision
+ASE-0026,Vida,4,2025-04-02,Reincidencia en cobertura medica,Alerta alta,Activo
+ASE-0093,Salud,3,2024-09-14,Historico de reclamos por robo,Alerta baja,En revision
+ASE-0104,Patrimonial,8,2025-08-17,Reincidencia en cobertura medica,Alerta baja,En revision
+ASE-0160,Salud,9,2026-06-15,Historico de reclamos por robo,Alerta media,Activo
+ASE-0322,Patrimonial,3,2025-03-30,Multiples polizas activas,Alerta baja,Activo
+ASE-0157,Salud,5,2026-02-13,Reclamo dentro de los primeros 30 dias de cobertura,Alerta media,Activo
+ASE-0272,Vida,6,2026-02-20,Reincidencia en cobertura medica,Alerta alta,En revision
+ASE-0106,Patrimonial,4,2025-12-30,Multiples polizas activas,Alerta alta,En revision
+ASE-0149,Salud,2,2025-10-22,Historico de reclamos por robo,Alerta media,Activo
+ASE-0229,Patrimonial,5,2024-11-28,Reclamo dentro de los primeros 30 dias de cobertura,Alerta media,En revision
+ASE-0257,Vehicular,9,2025-03-15,Reclamo dentro de los primeros 30 dias de cobertura,Alerta baja,En revision
+ASE-0345,Vehicular,3,2026-02-04,Historico de reclamos por robo,Alerta media,Activo
+ASE-0092,Vida,6,2026-05-19,Antecedente de monto atipico,Alerta baja,Activo
+ASE-0139,Patrimonial,4,2025-01-22,Multiples polizas activas,Alerta media,Activo
+ASE-0178,Vehicular,3,2025-02-15,Multiples polizas activas,Alerta baja,Activo
+ASE-0010,Vida,2,2025-01-26,Historico de reclamos por robo,Alerta media,En revision
+ASE-0129,Vida,6,2025-02-27,Reclamo dentro de los primeros 30 dias de cobertura,Alerta media,Activo
+ASE-0019,Patrimonial,7,2025-06-09,Multiples polizas activas,Alerta media,Activo
+ASE-0008,Salud,2,2026-03-11,Multiples polizas activas,Alerta media,Activo
+ASE-0259,Vida,3,2025-06-22,Reclamo dentro de los primeros 30 dias de cobertura,Alerta media,Activo
+ASE-0283,Patrimonial,2,2025-12-31,Multiples polizas activas,Alerta alta,Activo
+ASE-0098,Vehicular,8,2025-12-24,Multiples polizas activas,Alerta baja,Activo

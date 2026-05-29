@@ -10,16 +10,46 @@ from src.app.components import ethics_notice, page_header, section_title
 
 
 QUICK_QUESTIONS = [
-    ("Top siniestros de mayor riesgo", "Top 10 siniestros de mayor riesgo"),
-    ("Proveedores con mas alertas", "Proveedores con mas alertas"),
-    ("Documentos faltantes criticos", "Documentos faltantes en casos criticos"),
-    ("Ciudades con mayor concentracion", "Ciudades con mayor concentracion"),
-    ("Ramos con mayor riesgo", "Ramos con mayor riesgo"),
-    ("Asegurados frecuentes", "Asegurados frecuentes"),
-    ("Montos atipicos", "Montos atipicos"),
-    ("Patrones narrativos repetidos", "Patrones narrativos repetidos"),
-    ("Resumen ejecutivo", "Generar resumen ejecutivo"),
+    ("Pareto: 80% de alertas rojas",        "Que proveedores concentran el 80% de las alertas rojas"),
+    ("Cruce con watchlist (DB1 + DB2)",     "Cuantos siniestros cruzan con la watchlist de compliance"),
+    ("Top siniestros de mayor riesgo",      "Top 10 siniestros de mayor riesgo"),
+    ("Proveedores con mas alertas",         "Proveedores con mas alertas"),
+    ("Documentos faltantes criticos",       "Documentos faltantes en casos criticos"),
+    ("Ciudades con mayor concentracion",    "Ciudades con mayor concentracion"),
+    ("Patrones narrativos repetidos",       "Patrones narrativos repetidos"),
+    ("Resumen ejecutivo",                   "Generar resumen ejecutivo"),
 ]
+
+
+# Tabla simple: por keyword detectado -> tool MCP que se dispara.
+# Permite mostrar trazabilidad visible debajo de cada respuesta del agente.
+_TRACE_MAP = [
+    (("pareto", "80", "ochenta", "concentran"),       ("pareto_red_providers",     "claims_ai")),
+    (("watchlist", "compliance", "cruz", "antecedente"), ("get_watchlist_summary", "claims_ai+watchlist")),
+    (("proveedor", "taller", "clinica", "perito"),    ("get_provider_alert_summary","claims_ai")),
+    (("ciudad", "sucursal"),                          ("get_city_risk_summary",    "claims_ai")),
+    (("ramo", "cobertura"),                           ("get_branch_risk_summary",  "claims_ai")),
+    (("document",),                                   ("get_missing_documents_critical","claims_ai")),
+    (("narrativa", "similar", "patron"),              ("get_similar_narratives",   "claims_ai")),
+    (("resumen", "ejecutivo"),                        ("generate_executive_summary","claims_ai")),
+    (("por que", "explica", "razon", "motivo"),       ("explain_claim_risk",       "claims_ai")),
+    (("top", "mayor riesgo", "criticos", "rojos"),    ("get_top_risk_claims",      "claims_ai")),
+]
+
+
+def _trace_for(question: str) -> tuple[str, str]:
+    """Devuelve (tool_name, db_source) para mostrar como trazabilidad MCP."""
+    import re
+
+    q = question.lower()
+    if re.search(r"SIN-\d+", question.upper()):
+        if any(k in q for k in ("watchlist", "compliance", "cruz", "antecedente")):
+            return ("cross_reference_claim", "claims_ai+watchlist")
+        return ("explain_claim_risk", "claims_ai")
+    for keywords, trace in _TRACE_MAP:
+        if any(k in q for k in keywords):
+            return trace
+    return ("get_top_risk_claims", "claims_ai")
 
 
 def render(claims: pd.DataFrame) -> None:
@@ -85,4 +115,6 @@ def _append_and_answer(question: str, claims: pd.DataFrame) -> None:
     history = st.session_state.setdefault("agent_history", [])
     history.append({"role": "user", "content": question})
     response = answer_question(question, claims)
-    history.append({"role": "assistant", "content": response})
+    tool, source = _trace_for(question)
+    trace = f"\n\n<small style='color:#5b6677;'>MCP tool: <code>{tool}</code> &middot; fuente: <code>{source}</code></small>"
+    history.append({"role": "assistant", "content": response + trace})

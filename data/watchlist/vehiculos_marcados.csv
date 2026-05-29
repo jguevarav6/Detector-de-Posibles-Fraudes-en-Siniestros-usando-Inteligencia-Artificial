@@ -1,0 +1,23 @@
+id_vehiculo,motivo,casos_relacionados,fecha_registro,fuente,estado
+VEH-0201,Cambio de propietario reciente,4,2025-12-18,Policia Nacional,Cerrado
+VEH-0245,Placa asociada a multiples siniestros,4,2025-12-29,Anonimo,Activo
+VEH-0110,Cambio de propietario reciente,3,2025-07-24,Aseguradora aliada,Activo
+VEH-0227,Cambio de propietario reciente,4,2025-09-06,Anonimo,Activo
+VEH-0008,Placa asociada a multiples siniestros,1,2025-11-18,Reporte interno,Cerrado
+VEH-0208,Placa asociada a multiples siniestros,4,2024-12-15,Aseguradora aliada,Activo
+VEH-0195,Placa asociada a multiples siniestros,5,2025-02-25,Reporte interno,Activo
+VEH-0162,Placa asociada a multiples siniestros,3,2026-02-05,Policia Nacional,Activo
+VEH-0103,Cambio de propietario reciente,3,2025-09-06,Reporte interno,Activo
+VEH-0234,Modelo con alto indice de fraude documentado,4,2025-03-12,Reporte interno,Activo
+VEH-0225,Cambio de propietario reciente,1,2025-08-05,Anonimo,Activo
+VEH-0142,Placa asociada a multiples siniestros,6,2025-05-05,Reporte interno,Activo
+VEH-0141,Placa asociada a multiples siniestros,4,2025-08-04,Anonimo,Cerrado
+VEH-0053,Modelo con alto indice de fraude documentado,3,2025-02-06,Policia Nacional,Activo
+VEH-0185,Modelo con alto indice de fraude documentado,6,2026-04-05,Anonimo,Cerrado
+VEH-0021,Vehiculo reportado robado previamente,1,2024-12-23,Anonimo,Cerrado
+VEH-0013,Modelo con alto indice de fraude documentado,2,2025-01-14,Policia Nacional,Activo
+VEH-0188,Placa asociada a multiples siniestros,5,2025-12-01,Policia Nacional,Cerrado
+VEH-0106,Vehiculo reportado robado previamente,5,2025-01-25,Policia Nacional,Activo
+VEH-0116,Placa asociada a multiples siniestros,5,2025-12-31,Policia Nacional,Cerrado
+VEH-0158,Placa asociada a multiples siniestros,6,2025-07-01,Aseguradora aliada,Cerrado
+VEH-0193,Vehiculo reportado robado previamente,1,2025-02-15,Policia Nacional,Activo

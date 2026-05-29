@@ -16,6 +16,8 @@ from src.agent import agent_tools as tools
 # Diccionario de intenciones con sinonimos en espanol/ingles para clasificar
 # preguntas libres del usuario sin depender de palabras exactas.
 INTENT_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "watchlist_summary": ("watchlist", "compliance", "lista restrictiva", "lista negra", "observados", "antecedentes", "cuantos cruzan", "cruce"),
+    "pareto_providers":  ("80", "ochenta", "pareto", "concentran", "concentracion 80"),
     "explain":          ("por que", "por qué", "porque", "explica", "explicar", "explicacion", "explicación", "detalle", "razon", "razón", "motivo"),
     "provider":         ("proveedor", "taller", "clinica", "clínica", "perito", "peritaje", "centro medico", "centro médico"),
     "city":             ("ciudad", "ciudades", "sucursal", "guayaquil", "quito", "cuenca", "manta", "loja"),
@@ -63,6 +65,9 @@ def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
 
     claim_id = _extract_claim_id(raw)
     if claim_id:
+        # Si la pregunta menciona compliance/watchlist, usar cross_reference
+        if any(k in normalized for k in ("watchlist", "compliance", "cruz", "antecedente")):
+            return _format_cross_reference(tools.cross_reference_claim(claim_id))
         return tools.explain_claim(df, claim_id)
 
     matched = _match_intent(normalized)
@@ -70,6 +75,8 @@ def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
         return _guidance_message(question=raw)
 
     dispatch = {
+        "watchlist_summary": lambda: _format_watchlist_summary(tools.watchlist_summary()),
+        "pareto_providers":  lambda: _format_pareto(tools.pareto_red_providers(0.8)),
         "explain":      lambda: tools.explain_claim(df, None),
         "provider":     lambda: tools.provider_alert_summary(df),
         "city":         lambda: tools.city_risk_summary(df),
@@ -84,6 +91,46 @@ def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
         "top":          lambda: tools.top_risk_claims(df),
     }
     return dispatch[matched]()
+
+
+def _format_watchlist_summary(data: dict) -> str:
+    if "error" in data:
+        return "No hay datos suficientes para cruzar con la watchlist."
+    return (
+        f"Cruce operacional vs watchlist: {data['claims_con_alerta_compliance']} de "
+        f"{data['claims_total']} siniestros cruzan con compliance; "
+        f"{data['claims_rojos_con_alerta']} son rojos. "
+        f"Watchlist activa: {data['watchlist_proveedores']} proveedores observados, "
+        f"{data['watchlist_asegurados']} asegurados con antecedentes y "
+        f"{data['watchlist_vehiculos']} vehiculos marcados."
+    )
+
+
+def _format_pareto(data: dict) -> str:
+    if "error" in data:
+        return "No hay alertas rojas suficientes para calcular concentracion."
+    nombres = ", ".join(f"{p['proveedor']} ({p['rojos']} rojos)" for p in data["proveedores"][:8])
+    return (
+        f"El {data['porcentaje_cubierto']:.0%} de las {data['rojos_totales']} alertas rojas "
+        f"se concentra en {data['n_proveedores']} proveedores: {nombres}."
+    )
+
+
+def _format_cross_reference(data: dict) -> str:
+    if data.get("error"):
+        return f"No encuentro el siniestro {data.get('id_siniestro', '')} en la base operacional."
+    hits = data.get("watchlist_hits", [])
+    if not hits:
+        return f"{data['id_siniestro']} no cruza con la watchlist de compliance."
+    lineas = [f"{data['id_siniestro']} ({data['nivel_riesgo']}, score {data['score_final']:.0f}) cruza con compliance:"]
+    for hit in hits:
+        if hit["tipo"] == "proveedor":
+            lineas.append(f"  - Proveedor {hit.get('id_proveedor')} {hit.get('nivel_alerta')}: {hit.get('motivo')}.")
+        elif hit["tipo"] == "asegurado":
+            lineas.append(f"  - Asegurado {hit.get('id_asegurado')} con antecedente {hit.get('tipo_antecedente')}: {hit.get('motivo')}.")
+        elif hit["tipo"] == "vehiculo":
+            lineas.append(f"  - Vehiculo {hit.get('id_vehiculo')} marcado: {hit.get('motivo')}.")
+    return "\n".join(lineas)
 
 
 def _match_intent(normalized: str) -> str | None:

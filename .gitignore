@@ -27,6 +27,9 @@ data/processed/*.json
 !data/processed/risk_scores.csv
 !data/processed/model_metrics.json
 
+# Watchlist sintetica (DB2 compliance) tambien se versiona para deploy
+!data/watchlist/
+
 # OS / editors
 .DS_Store
 Thumbs.db

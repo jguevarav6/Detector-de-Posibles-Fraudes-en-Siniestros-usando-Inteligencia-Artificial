@@ -1,4 +1,10 @@
-"""Construccion reproducible de MySQL desde CSV sinteticos."""
+"""Construccion reproducible de las dos bases MySQL desde CSV sinteticos.
+
+- `fraudlens_claims_ai`: operacional (claims, policies, insured, vehicles,
+  providers, documents, risk_scores).
+- `fraudlens_watchlist`: compliance (proveedores_observados,
+  asegurados_antecedentes, vehiculos_marcados, narrativas_recurrentes).
+"""
 
 from __future__ import annotations
 
@@ -9,28 +15,37 @@ import mysql.connector
 import pandas as pd
 from mysql.connector import MySQLConnection
 
-from src.database.settings import MySQLSettings, mysql_settings
+from src.database.settings import MySQLSettings, mysql_settings, watchlist_settings
 
 
 SYNTHETIC_DIR = Path("data/synthetic")
-TABLE_FILES = {
-    "insured": "insured.csv",
-    "policies": "policies.csv",
-    "vehicles": "vehicles.csv",
+WATCHLIST_DIR = Path("data/watchlist")
+
+CLAIMS_TABLES = {
+    "insured":   "insured.csv",
+    "policies":  "policies.csv",
+    "vehicles":  "vehicles.csv",
     "providers": "providers.csv",
-    "claims": "claims.csv",
+    "claims":    "claims.csv",
     "documents": "documents.csv",
     "watchlist": "watchlist.csv",
 }
 
+WATCHLIST_TABLES = {
+    "proveedores_observados":  "proveedores_observados.csv",
+    "asegurados_antecedentes": "asegurados_antecedentes.csv",
+    "vehiculos_marcados":      "vehiculos_marcados.csv",
+    "narrativas_recurrentes":  "narrativas_recurrentes.csv",
+}
+
 
 def build_database(input_dir: Path = SYNTHETIC_DIR, settings: MySQLSettings | None = None) -> str:
-    """Crea base MySQL y carga tablas sinteticas."""
+    """Crea la base operacional y carga las tablas sinteticas."""
     config = settings or mysql_settings()
     _create_database(config)
     with _connect(config, database=config.database) as connection:
         cursor = connection.cursor()
-        for table, file_name in TABLE_FILES.items():
+        for table, file_name in CLAIMS_TABLES.items():
             csv_path = input_dir / file_name
             if csv_path.exists():
                 _replace_table(connection, cursor, table, pd.read_csv(csv_path))
@@ -39,8 +54,24 @@ def build_database(input_dir: Path = SYNTHETIC_DIR, settings: MySQLSettings | No
     return f"mysql://{config.user}@{config.host}:{config.port}/{config.database}"
 
 
+def build_watchlist_database(
+    input_dir: Path = WATCHLIST_DIR,
+    settings: MySQLSettings | None = None,
+) -> str:
+    """Crea la base de compliance y carga las cuatro tablas de watchlist."""
+    config = settings or watchlist_settings()
+    _create_database(config)
+    with _connect(config, database=config.database) as connection:
+        cursor = connection.cursor()
+        for table, file_name in WATCHLIST_TABLES.items():
+            csv_path = input_dir / file_name
+            if csv_path.exists():
+                _replace_table(connection, cursor, table, pd.read_csv(csv_path))
+        connection.commit()
+    return f"mysql://{config.user}@{config.host}:{config.port}/{config.database}"
+
+
 def write_risk_scores(scores: pd.DataFrame, settings: MySQLSettings | None = None) -> None:
-    """Persiste scores procesados en MySQL."""
     config = settings or mysql_settings()
     _create_database(config)
     with _connect(config, database=config.database) as connection:
@@ -52,7 +83,10 @@ def write_risk_scores(scores: pd.DataFrame, settings: MySQLSettings | None = Non
 def _create_database(config: MySQLSettings) -> None:
     with _connect(config, database=None) as connection:
         cursor = connection.cursor()
-        cursor.execute(f"CREATE DATABASE IF NOT EXISTS `{config.database}` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci")
+        cursor.execute(
+            f"CREATE DATABASE IF NOT EXISTS `{config.database}` "
+            "CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci"
+        )
         connection.commit()
 
 

@@ -1,0 +1,61 @@
+id_proveedor,nivel_alerta,casos_relacionados,motivo,fecha_registro,responsable_compliance,estado
+PRO-0042,Alerta alta,17,Monto promedio superior al mercado,2025-03-02,CAR-04,Activo
+PRO-0020,Alerta media,8,Reportes anonimos de terceros,2025-07-11,CAR-02,Activo
+PRO-0051,Critico,13,Reportes anonimos de terceros,2025-07-10,CAR-04,Activo
+PRO-0007,Alerta media,19,Reclamos con narrativa duplicada,2026-02-28,CAR-02,Activo
+PRO-0010,Critico,16,Concentracion atipica de reclamos,2025-12-09,CAR-01,Activo
+PRO-0069,Alerta alta,22,Reclamos con narrativa duplicada,2025-05-30,CAR-04,Activo
+PRO-0013,Alerta alta,18,Reportes anonimos de terceros,2026-02-07,CAR-01,Activo
+PRO-0047,Critico,12,Reportes anonimos de terceros,2025-06-30,CAR-04,Activo
+PRO-0008,Critico,14,Casos repetidos en menos de 30 dias,2026-04-20,CAR-01,En revision
+PRO-0065,Alerta media,12,Casos repetidos en menos de 30 dias,2026-03-14,CAR-02,En revision
+PRO-0028,Critico,5,Casos repetidos en menos de 30 dias,2025-04-08,CAR-04,En revision
+PRO-0005,Alerta media,16,Monto promedio superior al mercado,2025-08-02,CAR-03,En revision
+PRO-0012,Critico,10,Casos repetidos en menos de 30 dias,2025-05-11,CAR-01,Activo
+PRO-0056,Alerta media,24,Casos repetidos en menos de 30 dias,2025-12-10,CAR-01,En revision
+PRO-0054,Alerta alta,12,Concentracion atipica de reclamos,2025-11-08,CAR-02,En revision
+PRO-0009,Alerta alta,7,Reportes anonimos de terceros,2025-04-30,CAR-01,En revision
+PRO-0031,Critico,15,Reclamos con narrativa duplicada,2025-04-07,CAR-01,En revision
+PRO-0006,Alerta media,9,Concentracion atipica de reclamos,2025-03-29,CAR-02,En revision
+PRO-0036,Alerta media,13,Monto promedio superior al mercado,2025-11-28,CAR-01,Activo
+PRO-0070,Alerta media,20,Concentracion atipica de reclamos,2026-05-13,CAR-03,Activo
+PRO-0004,Alerta media,22,Reclamos con narrativa duplicada,2026-03-02,CAR-02,Activo
+PRO-0053,Alerta alta,18,Concentracion atipica de reclamos,2025-05-23,CAR-01,En revision
+PRO-0037,Critico,18,Documentacion irregular reportada,2025-01-21,CAR-01,Activo
+PRO-0072,Alerta alta,11,Reclamos con narrativa duplicada,2026-01-29,CAR-02,Activo
+PRO-0015,Alerta alta,7,Reportes anonimos de terceros,2025-10-15,CAR-01,Activo
+PRO-0041,Alerta alta,19,Documentacion irregular reportada,2026-02-09,CAR-02,Activo
+PRO-0055,Alerta alta,23,Casos repetidos en menos de 30 dias,2025-09-27,CAR-02,Activo
+PRO-0038,Alerta media,9,Monto promedio superior al mercado,2025-03-29,CAR-04,Activo
+PRO-0060,Alerta media,11,Reclamos con narrativa duplicada,2026-04-14,CAR-03,Activo
+PRO-0058,Critico,14,Documentacion irregular reportada,2025-05-26,CAR-01,Activo
+PRO-0059,Alerta media,18,Casos repetidos en menos de 30 dias,2026-01-29,CAR-03,Activo
+PRO-0026,Alerta media,18,Reportes anonimos de terceros,2025-01-04,CAR-03,Activo
+PRO-0052,Critico,9,Reclamos con narrativa duplicada,2026-01-11,CAR-02,En revision
+PRO-0067,Alerta media,15,Reclamos con narrativa duplicada,2025-06-07,CAR-04,Activo
+PRO-0003,Alerta media,7,Concentracion atipica de reclamos,2025-12-02,CAR-02,En revision
+PRO-0062,Critico,24,Documentacion irregular reportada,2025-12-15,CAR-02,Activo
+PRO-0071,Alerta media,23,Concentracion atipica de reclamos,2026-04-22,CAR-02,En revision
+PRO-0019,Alerta media,3,Documentacion irregular reportada,2025-10-26,CAR-02,Activo
+PRO-0027,Alerta media,21,Documentacion irregular reportada,2024-12-16,CAR-03,En revision
+PRO-0076,Alerta media,14,Reclamos con narrativa duplicada,2025-12-30,CAR-04,Activo
+PRO-0035,Alerta media,17,Casos repetidos en menos de 30 dias,2025-12-09,CAR-01,Activo
+PRO-0057,Alerta media,18,Monto promedio superior al mercado,2025-11-18,CAR-01,Activo
+PRO-0078,Critico,6,Monto promedio superior al mercado,2025-06-14,CAR-01,Activo
+PRO-0079,Alerta alta,4,Concentracion atipica de reclamos,2025-10-30,CAR-04,Activo
+PRO-0045,Critico,13,Monto promedio superior al mercado,2026-03-10,CAR-02,Activo
+PRO-0068,Critico,19,Casos repetidos en menos de 30 dias,2025-02-04,CAR-03,Activo
+PRO-0077,Alerta media,16,Concentracion atipica de reclamos,2025-02-09,CAR-04,En revision
+PRO-0074,Alerta media,24,Casos repetidos en menos de 30 dias,2025-06-24,CAR-04,Activo
+PRO-0024,Alerta alta,6,Casos repetidos en menos de 30 dias,2025-10-08,CAR-03,Activo
+PRO-0048,Alerta media,17,Casos repetidos en menos de 30 dias,2025-08-27,CAR-01,En revision
+PRO-0018,Alerta media,24,Casos repetidos en menos de 30 dias,2024-12-31,CAR-02,En revision
+PRO-0023,Alerta alta,16,Casos repetidos en menos de 30 dias,2025-03-26,CAR-03,Activo
+PRO-0046,Alerta alta,3,Documentacion irregular reportada,2026-02-08,CAR-04,En revision
+PRO-0043,Critico,13,Monto promedio superior al mercado,2026-04-25,CAR-03,Activo
+PRO-0002,Alerta media,6,Concentracion atipica de reclamos,2026-01-18,CAR-03,Activo
+PRO-0050,Alerta media,11,Casos repetidos en menos de 30 dias,2026-04-03,CAR-04,Activo
+PRO-0034,Alerta media,20,Monto promedio superior al mercado,2025-03-24,CAR-04,Activo
+PRO-0016,Alerta alta,4,Reportes anonimos de terceros,2026-02-11,CAR-02,En revision
+PRO-0022,Alerta alta,3,Reportes anonimos de terceros,2026-02-28,CAR-01,Activo
+PRO-0030,Alerta media,5,Documentacion irregular reportada,2026-02-17,CAR-01,En revision

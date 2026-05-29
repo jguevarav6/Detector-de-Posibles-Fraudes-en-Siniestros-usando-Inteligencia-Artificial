@@ -1,0 +1,13 @@
+id_patron,patron_texto,siniestros_relacionados,frecuencia,fecha_deteccion,nivel_alerta
+PAT-001,Robo de mercaderia en transito sin guia.,"SIN-00398, SIN-00268, SIN-00229",3,2025-07-18,Alerta media
+PAT-002,Vehiculo robado en zona insegura sin testigos.,"SIN-00472, SIN-00286, SIN-00982, SIN-00324",4,2025-06-25,Alerta media
+PAT-003,Reparacion estimada por encima del valor del bien.,"SIN-00561, SIN-00253, SIN-00030",3,2025-10-23,Critico
+PAT-004,Perdida total con peritaje pendiente.,"SIN-00023, SIN-00199",2,2025-09-08,Critico
+PAT-005,Atropello sin tercero identificado.,"SIN-00264, SIN-00234",2,2025-06-14,Alerta alta
+PAT-006,Incendio domestico sin parte de bomberos.,"SIN-00505, SIN-00035, SIN-00713",3,2025-11-29,Critico
+PAT-007,Atropello sin tercero identificado.,"SIN-00699, SIN-00406, SIN-00203, SIN-00007",4,2025-12-23,Critico
+PAT-008,Robo de mercaderia en transito sin guia.,"SIN-00211, SIN-00508",2,2026-02-08,Alerta alta
+PAT-009,Asistencia medica solicitada fuera de horario habitual.,"SIN-00477, SIN-00227, SIN-00272",3,2025-12-21,Alerta media
+PAT-010,Danios por evento climatico sin reporte meteorologico.,"SIN-00625, SIN-00192, SIN-00918, SIN-00229, SIN-00497",5,2025-10-20,Critico
+PAT-011,Vehiculo robado en zona insegura sin testigos.,"SIN-00945, SIN-00403, SIN-00056",3,2026-02-01,Alerta media
+PAT-012,Danios por evento climatico sin reporte meteorologico.,"SIN-00426, SIN-00054, SIN-00727",3,2026-04-21,Alerta media
