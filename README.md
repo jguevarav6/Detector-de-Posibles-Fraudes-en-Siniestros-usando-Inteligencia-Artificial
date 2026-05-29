@@ -28,7 +28,7 @@ Apoyar al analista de siniestros con una bandeja priorizada de casos, explicacio
 Incluye:
 
 - Datos sintéticos de siniestros, pólizas, asegurados, vehículos, proveedores y documentos.
-- Persistencia local con CSV y SQLite.
+- Persistencia local con MySQL y CSV procesados.
 - Reglas explicables de posible riesgo.
 - Score final de riesgo.
 - Dashboard Streamlit.
@@ -47,7 +47,7 @@ No incluye:
 - Rechazo automático de siniestros.
 - Login, roles o microservicios.
 - Docker obligatorio.
-- Base Oracle/MySQL real obligatoria.
+- Oracle real obligatorio.
 - React o frontend separado.
 
 ## Stack tecnológico
@@ -56,7 +56,7 @@ No incluye:
 |---|---|
 | Lenguaje | Python 3.11 |
 | Dashboard | Streamlit |
-| Datos | CSV sintéticos + SQLite |
+| Datos | MySQL + CSV sintéticos/procesados |
 | Procesamiento | Pandas, NumPy |
 | Visualización | Plotly |
 | ML | Scikit-learn |
@@ -123,9 +123,11 @@ Instalar dependencias:
 pip install -r requirements.txt
 ```
 
-## Ejecución prevista de la demo
+## Ejecución de la demo
 
-Preparar datos, base local y salidas procesadas:
+Requisito: servicio MySQL local activo. La demo usa la base `fraudlens_claims_ai`.
+
+Preparar datos sintéticos, cargar MySQL, entrenar modelos y generar salidas procesadas:
 
 ```bash
 python setup_demo.py
@@ -140,10 +142,10 @@ streamlit run src/app/main.py
 Ejecutar pruebas:
 
 ```bash
-pytest
+python -m pytest
 ```
 
-Nota: actualmente el repositorio tiene la arquitectura de archivos y placeholders. La lógica de datos, scoring, dashboard funcional y agente se implementará por fases.
+El pipeline actual genera 1000 siniestros sintéticos, carga tablas MySQL, calcula reglas, ML, anomalías, NLP, score final y alimenta el dashboard Streamlit.
 
 ## Score de riesgo
 
@@ -205,6 +207,13 @@ La clasificación expresa prioridad de revisión, no culpabilidad.
 
 ## Estado actual
 
-Arquitectura base creada y publicada en `main`.
+MVP funcional en progreso avanzado:
 
-Siguiente fase: generación de datos sintéticos y preparación local de SQLite desde `setup_demo.py`.
+- Datos sintéticos reproducibles.
+- Carga MySQL local.
+- Score híbrido con reglas, ML, anomalías y NLP.
+- Dashboard Streamlit operativo.
+- Agente local con tools controladas.
+- Documentación técnica, ética y script de demo.
+
+Progreso estimado en bitácora: 70%.

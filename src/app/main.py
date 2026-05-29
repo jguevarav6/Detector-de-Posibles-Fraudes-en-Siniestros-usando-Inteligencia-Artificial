@@ -31,13 +31,32 @@ def main() -> None:
     claims = load_claims()
 
     with st.sidebar:
-        st.title("FraudLens")
-        st.caption("Claims AI")
-        selected_page = st.radio("Navegación", list(PAGES.keys()), label_visibility="collapsed")
+        st.markdown(
+            """
+            <div class="fl-brand">
+              <div class="fl-brand-title">FraudLens</div>
+              <div class="fl-brand-subtitle">Claims AI · MySQL demo</div>
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+        selected_page = st.radio("Navegacion", list(PAGES.keys()), label_visibility="collapsed")
         st.divider()
-        st.caption("Demo local")
-        st.caption("Datos sintéticos o procesados")
-        st.caption("Revisión humana obligatoria")
+        red = int((claims["nivel_riesgo"] == "Rojo").sum())
+        yellow = int((claims["nivel_riesgo"] == "Amarillo").sum())
+        st.markdown(
+            f"""
+            <div class="fl-sidebar-card">
+              <strong>{len(claims):,}</strong> siniestros procesados<br>
+              {red} rojos · {yellow} amarillos<br>
+              Fuente: MySQL + CSV procesado
+            </div>
+            <div class="fl-sidebar-card">
+              Revision humana obligatoria. El score prioriza casos, no decide pagos.
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
 
     PAGES[selected_page](claims)
 

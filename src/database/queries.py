@@ -1,24 +1,42 @@
-"""Consultas controladas para SQLite local."""
+"""Consultas controladas para MySQL."""
 
 from __future__ import annotations
 
-import sqlite3
-from pathlib import Path
-
 import pandas as pd
 
-
-DATABASE_PATH = Path("data/processed/fraudlens_demo.sqlite")
-
-
-def read_table(table_name: str, database_path: Path = DATABASE_PATH) -> pd.DataFrame:
-    """Lee una tabla completa desde SQLite."""
-    with sqlite3.connect(database_path) as connection:
-        return pd.read_sql_query(f"SELECT * FROM {table_name}", connection)
+from src.database.build_database import _connect
+from src.database.settings import MySQLSettings, mysql_settings
 
 
-def list_tables(database_path: Path = DATABASE_PATH) -> list[str]:
-    """Lista tablas disponibles."""
-    with sqlite3.connect(database_path) as connection:
-        rows = connection.execute("SELECT name FROM sqlite_master WHERE type='table' ORDER BY name").fetchall()
-    return [row[0] for row in rows]
+ALLOWED_TABLES = {
+    "claims",
+    "policies",
+    "insured",
+    "vehicles",
+    "providers",
+    "documents",
+    "watchlist",
+    "risk_scores",
+}
+
+
+def read_table(table_name: str, settings: MySQLSettings | None = None) -> pd.DataFrame:
+    """Lee una tabla permitida desde MySQL."""
+    if table_name not in ALLOWED_TABLES:
+        raise ValueError(f"Tabla no permitida: {table_name}")
+    config = settings or mysql_settings()
+    with _connect(config, database=config.database) as connection:
+        cursor = connection.cursor()
+        cursor.execute(f"SELECT * FROM `{table_name}`")
+        rows = cursor.fetchall()
+        columns = [item[0] for item in cursor.description]
+        return pd.DataFrame(rows, columns=columns)
+
+
+def list_tables(settings: MySQLSettings | None = None) -> list[str]:
+    """Lista tablas disponibles en la base MySQL de la demo."""
+    config = settings or mysql_settings()
+    with _connect(config, database=config.database) as connection:
+        cursor = connection.cursor()
+        cursor.execute("SHOW TABLES")
+        return [row[0] for row in cursor.fetchall()]

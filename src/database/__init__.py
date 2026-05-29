@@ -1,1 +1,1 @@
-"""Construcción de SQLite y consultas controladas."""
+"""Construccion de MySQL y consultas controladas."""

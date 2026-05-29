@@ -1,41 +1,65 @@
-"""Página de reportes y descargas."""
+"""Pagina de reportes y descargas."""
 
 from __future__ import annotations
 
 import pandas as pd
 import streamlit as st
 
-from src.app.components import ethics_notice, page_header
+from src.agent.agent_router import answer_question
+from src.app.components import ethics_notice, format_currency, page_header, section_title
 
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
         "Reportes",
-        "Exportación de bandejas y resumen ejecutivo para revisión humana.",
+        "Exportacion de bandejas, resumen ejecutivo y evidencia para revision humana.",
     )
     ethics_notice()
 
     critical = claims[claims["nivel_riesgo"] == "Rojo"].sort_values("score_final", ascending=False)
-    st.download_button(
-        "Descargar casos rojos CSV",
+    review = claims[claims["nivel_riesgo"].isin(["Rojo", "Amarillo"])].sort_values("score_final", ascending=False)
+
+    c1, c2, c3 = st.columns(3)
+    c1.metric("Casos rojos", len(critical))
+    c2.metric("Casos a revisar", len(review))
+    c3.metric("Monto rojo", format_currency(float(critical["monto_reclamado"].sum())))
+
+    section_title("Descargas")
+    a, b, c = st.columns(3)
+    a.download_button(
+        "Descargar casos rojos",
         critical.to_csv(index=False).encode("utf-8"),
-        file_name="casos_rojos_demo.csv",
+        file_name="fraudlens_casos_rojos.csv",
         mime="text/csv",
         use_container_width=True,
     )
-    st.download_button(
-        "Descargar todos los scores CSV",
+    b.download_button(
+        "Descargar bandeja revisable",
+        review.to_csv(index=False).encode("utf-8"),
+        file_name="fraudlens_bandeja_revisable.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+    c.download_button(
+        "Descargar todos los scores",
         claims.to_csv(index=False).encode("utf-8"),
-        file_name="scores_demo.csv",
+        file_name="fraudlens_scores.csv",
         mime="text/csv",
         use_container_width=True,
     )
 
-    st.markdown("### Resumen ejecutivo")
+    section_title("Resumen ejecutivo")
+    st.info(answer_question("Generar resumen ejecutivo", claims))
+    st.warning(
+        "Las metricas del modelo se calculan sobre datos sinteticos. Sirven para demostrar el metodo, no para prometer desempeno productivo."
+    )
+
+    section_title("Checklist de demo")
     st.write(
-        f"""
-        La bandeja demo contiene {len(claims)} siniestros. Los casos rojos deben ser revisados
-        primero por concentración de señales. La salida del sistema es una alerta operativa,
-        no una conclusión legal ni una decisión automática.
+        """
+        - Datos sinteticos cargados en MySQL.
+        - Score hibrido calculado con reglas, ML, anomalias y NLP.
+        - Agente responde con tools controladas sobre datos procesados.
+        - La salida es prioridad de revision humana, no conclusion legal.
         """
     )

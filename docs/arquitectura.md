@@ -23,7 +23,7 @@ Construir una demo local, reproducible y defendible para hackathon, con foco en:
 |---|---|---|
 | Lenguaje | Python 3.11 | Ecosistema maduro para datos, IA y prototipos rápidos. |
 | Frontend/dashboard | Streamlit | Permite construir interfaz web de datos sin frontend separado. |
-| Datos | CSV sintéticos + SQLite | Reproducible, sin servidor ni credenciales. |
+| Datos | MySQL + CSV sintéticos/procesados | MySQL es la base de demo; CSV mantiene reproducibilidad y respaldo. |
 | Procesamiento | Pandas, NumPy | Limpieza, cruces y cálculo de variables. |
 | Visualización | Plotly | Gráficos interactivos para dashboard. |
 | ML supervisado | Scikit-learn con RandomForestClassifier | Modelo robusto para datos tabulares sintéticos. |
@@ -38,7 +38,7 @@ Construir una demo local, reproducible y defendible para hackathon, con foco en:
 ## Diagrama textual
 
 ```txt
-CSV sintéticos / SQLite
+CSV sintéticos / MySQL
         |
         v
 Carga y validación de datos
@@ -71,7 +71,7 @@ Streamlit Dashboard
 ## Flujo de datos
 
 1. Generar o cargar CSV sintéticos.
-2. Crear o actualizar SQLite local para la demo.
+2. Crear o actualizar MySQL local para la demo.
 3. Unir claims, policies, insured, vehicles, providers y documents.
 4. Calcular features: vigencia, demora de reporte, frecuencia, montos, documentos, proveedor, narrativa.
 5. Aplicar reglas de negocio explicables.
@@ -84,7 +84,7 @@ Streamlit Dashboard
 ## Módulos principales
 
 - `src/data_generation/`: generación de datos sintéticos.
-- `src/database/`: creación de SQLite y consultas.
+- `src/database/`: creación de MySQL y consultas.
 - `src/features/`: construcción de variables de riesgo.
 - `src/rules/`: reglas explicables de posible riesgo.
 - `src/models/`: entrenamiento y predicción ML.
@@ -205,7 +205,7 @@ MCP no es obligatorio. El sistema debe seguir funcionando con `agent_router` loc
 - Usar Streamlit como interfaz principal.
 - Usar Python 3.11 como único lenguaje de implementación.
 - Usar datos 100% sintéticos.
-- Usar SQLite para demo local y CSV como respaldo.
+- Usar MySQL para demo local y CSV como respaldo reproducible.
 - Priorizar reglas explicables antes de ML.
 - Usar RandomForestClassifier como modelo supervisado principal.
 - Mantener LogisticRegression como fallback.
@@ -220,7 +220,7 @@ MCP no es obligatorio. El sistema debe seguir funcionando con `agent_router` loc
 |---|---|
 | React | Aumenta complejidad de frontend, API, estado y deploy para una demo de datos. |
 | FastAPI obligatorio | No es necesario para Streamlit local; puede quedar como mejora futura. |
-| MySQL/Oracle real | Requiere servidor, credenciales y configuración innecesaria para datos sintéticos. |
+| Oracle real | Requiere servidor corporativo, credenciales y configuración innecesaria para datos sintéticos. |
 | Docker obligatorio | Añade fricción operativa para hackathon; no aporta al MVP local. |
 | Login | No es parte del alcance y desvía tiempo de IA, score y explicabilidad. |
 | Roles | No se requiere control de acceso para demo sintética. |
@@ -243,7 +243,7 @@ MCP no es obligatorio. El sistema debe seguir funcionando con `agent_router` loc
 - Estructura de repo definida y documentada.
 - Stack cerrado y sin dependencias innecesarias.
 - Modelo de datos mínimo definido.
-- Flujo de datos claro de CSV/SQLite a dashboard.
+- Flujo de datos claro de CSV/MySQL a dashboard.
 - Score final y rangos de riesgo documentados.
 - Separación entre datos, reglas, ML/NLP, scoring, explicación, agente y UI.
 - Decisiones descartadas documentadas.

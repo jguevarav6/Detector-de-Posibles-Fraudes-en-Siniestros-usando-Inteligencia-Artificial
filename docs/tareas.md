@@ -24,14 +24,14 @@ Reglas:
 | Área | Responsable | Estado | Progreso |
 |---|---|---|---:|
 | Configuración base | Ambos | Completo | 100% |
-| Frontend Streamlit | Persona 1 | En progreso | 55% |
-| Backend, datos y SQL | Persona 2 | En progreso | 45% |
-| Reglas y scoring | Persona 2 | Pendiente | 0% |
-| ML/NLP | Persona 2 | Pendiente | 0% |
-| Agente local/MCP | Persona 2 | Pendiente | 0% |
-| QA, docs y demo | Ambos | En progreso | 30% |
+| Frontend Streamlit | Persona 1 | En progreso | 75% |
+| Backend, datos y SQL | Persona 2 | En progreso | 70% |
+| Reglas y scoring | Persona 2 | En progreso | 70% |
+| ML/NLP | Persona 2 | En progreso | 55% |
+| Agente local/MCP | Persona 2 | En progreso | 55% |
+| QA, docs y demo | Ambos | En progreso | 60% |
 
-Progreso global estimado de implementación: 42%.
+Progreso global estimado de implementación: 70%.
 
 ---
 
@@ -98,7 +98,7 @@ Progreso global estimado de implementación: 42%.
 ## Fase 6: agente en interfaz
 
 - [x] Crear página `agent_chat.py`.
-- [ ] Conectar con `src/agent/agent_router.py`.
+- [x] Conectar con `src/agent/agent_router.py`.
 - [x] Agregar `st.chat_input`.
 - [x] Agregar botones de preguntas rápidas.
 - [x] Mostrar respuestas del agente con datos concretos.
@@ -148,10 +148,10 @@ Progreso global estimado de implementación: 42%.
 - [x] Inyectar casos con señales de posible riesgo.
 - [x] Documentar supuestos del dataset.
 
-## Fase 3: SQLite y consultas
+## Fase 3: MySQL y consultas
 
 - [x] Crear `src/database/build_database.py`.
-- [x] Crear base SQLite local desde CSV.
+- [x] Crear base MySQL local desde CSV.
 - [x] Crear tablas `claims`.
 - [x] Crear tablas `policies`.
 - [x] Crear tablas `insured`.
@@ -166,86 +166,86 @@ Progreso global estimado de implementación: 42%.
 ## Fase 4: features
 
 - [x] Crear `src/features/build_features.py`.
-- [ ] Calcular días desde inicio de póliza.
-- [ ] Calcular días hasta fin de póliza.
-- [ ] Calcular días entre ocurrencia y reporte.
-- [ ] Calcular frecuencia de reclamos por asegurado.
-- [ ] Calcular frecuencia de reclamos por vehículo.
-- [ ] Calcular recurrencia de proveedor.
-- [ ] Calcular relación monto reclamado vs suma asegurada.
-- [ ] Calcular indicadores de documentos incompletos.
-- [ ] Calcular indicadores de documentos inconsistentes.
+- [x] Calcular días desde inicio de póliza.
+- [x] Calcular días hasta fin de póliza.
+- [x] Calcular días entre ocurrencia y reporte.
+- [x] Calcular frecuencia de reclamos por asegurado.
+- [x] Calcular frecuencia de reclamos por vehículo.
+- [x] Calcular recurrencia de proveedor.
+- [x] Calcular relación monto reclamado vs suma asegurada.
+- [x] Calcular indicadores de documentos incompletos.
+- [x] Calcular indicadores de documentos inconsistentes.
 
 ## Fase 5: reglas de riesgo
 
 - [x] Crear `src/rules/fraud_rules.py`.
-- [ ] Implementar regla borde de vigencia.
-- [ ] Implementar regla reporte tardío.
-- [ ] Implementar regla demora en robo.
-- [ ] Implementar regla frecuencia de asegurado.
-- [ ] Implementar regla frecuencia de vehículo.
-- [ ] Implementar regla proveedor recurrente.
-- [ ] Implementar regla documentos incompletos.
-- [ ] Implementar regla documentos inconsistentes.
-- [ ] Implementar regla dinámica sospechosa.
-- [ ] Implementar regla tercero no identificado.
-- [ ] Implementar regla narrativa similar.
-- [ ] Implementar regla monto atípico.
-- [ ] Cada regla debe devolver código, puntos, severidad, explicación y evidencia.
+- [x] Implementar regla borde de vigencia.
+- [x] Implementar regla reporte tardío.
+- [x] Implementar regla demora en robo.
+- [x] Implementar regla frecuencia de asegurado.
+- [x] Implementar regla frecuencia de vehículo.
+- [x] Implementar regla proveedor recurrente.
+- [x] Implementar regla documentos incompletos.
+- [x] Implementar regla documentos inconsistentes.
+- [x] Implementar regla dinámica sospechosa.
+- [x] Implementar regla tercero no identificado.
+- [x] Implementar regla narrativa similar.
+- [x] Implementar regla monto atípico.
+- [x] Cada regla debe devolver código, puntos, severidad, explicación y evidencia.
 
 ## Fase 6: scoring y explicabilidad
 
 - [x] Crear `src/scoring/scoring_service.py`.
-- [ ] Calcular `score_reglas`.
-- [ ] Integrar `score_ml`.
-- [ ] Integrar `score_anomalia`.
-- [ ] Integrar `score_nlp`.
-- [ ] Calcular `score_final`.
-- [ ] Clasificar Verde, Amarillo y Rojo.
+- [x] Calcular `score_reglas`.
+- [x] Integrar `score_ml`.
+- [x] Integrar `score_anomalia`.
+- [x] Integrar `score_nlp`.
+- [x] Calcular `score_final`.
+- [x] Clasificar Verde, Amarillo y Rojo.
 - [x] Crear `src/explainability/explain_score.py`.
-- [ ] Generar explicación humana por caso.
-- [ ] Guardar `data/processed/scored_claims.csv`.
+- [x] Generar explicación humana por caso.
+- [x] Guardar `data/processed/scored_claims.csv`.
 
 ## Fase 7: ML
 
 - [x] Crear `src/models/train_model.py`.
 - [x] Crear `src/models/fraud_classifier.py`.
 - [x] Crear `src/models/anomaly_detector.py`.
-- [ ] Entrenar RandomForestClassifier.
-- [ ] Implementar LogisticRegression como fallback.
-- [ ] Implementar IsolationForest si hay tiempo.
-- [ ] Guardar modelo supervisado.
-- [ ] Guardar modelo de anomalías si aplica.
-- [ ] Guardar `data/processed/model_metrics.json`.
+- [x] Entrenar RandomForestClassifier.
+- [x] Implementar LogisticRegression como fallback.
+- [x] Implementar IsolationForest si hay tiempo.
+- [x] Guardar modelo supervisado.
+- [x] Guardar modelo de anomalías si aplica.
+- [x] Guardar `data/processed/model_metrics.json`.
 - [ ] Documentar que la etiqueta es simulada.
 
 ## Fase 8: NLP
 
 - [x] Crear `src/nlp/narrative_similarity.py`.
-- [ ] Vectorizar descripciones con TF-IDF.
-- [ ] Calcular cosine similarity.
-- [ ] Detectar narrativas similares.
-- [ ] Calcular `score_nlp`.
-- [ ] Guardar `max_similarity`.
-- [ ] Guardar `similar_claim_id`.
-- [ ] Generar explicación NLP.
+- [x] Vectorizar descripciones con TF-IDF.
+- [x] Calcular cosine similarity.
+- [x] Detectar narrativas similares.
+- [x] Calcular `score_nlp`.
+- [x] Guardar `max_similarity`.
+- [x] Guardar `similar_claim_id`.
+- [x] Generar explicación NLP.
 
 ## Fase 9: agente local
 
 - [x] Crear `src/agent/agent_tools.py`.
 - [x] Crear `src/agent/agent_router.py`.
-- [ ] Implementar intención top riesgos.
-- [ ] Implementar intención explicar siniestro.
-- [ ] Implementar intención proveedores con alertas.
-- [ ] Implementar intención ramos con riesgo.
-- [ ] Implementar intención ciudades con alertas.
+- [x] Implementar intención top riesgos.
+- [x] Implementar intención explicar siniestro.
+- [x] Implementar intención proveedores con alertas.
+- [x] Implementar intención ramos con riesgo.
+- [x] Implementar intención ciudades con alertas.
 - [ ] Implementar intención asegurados frecuentes.
-- [ ] Implementar intención documentos faltantes.
-- [ ] Implementar intención montos atípicos.
-- [ ] Implementar intención siniestros cerca de inicio de póliza.
-- [ ] Implementar intención patrones repetidos.
-- [ ] Implementar resumen ejecutivo.
-- [ ] Implementar recomendación de casos para revisar.
+- [x] Implementar intención documentos faltantes.
+- [x] Implementar intención montos atípicos.
+- [x] Implementar intención siniestros cerca de inicio de póliza.
+- [x] Implementar intención patrones repetidos.
+- [x] Implementar resumen ejecutivo.
+- [x] Implementar recomendación de casos para revisar.
 
 ## Fase 10: MCP opcional
 
@@ -264,9 +264,9 @@ Progreso global estimado de implementación: 42%.
 
 - [x] Crear tests de generación de datos.
 - [ ] Crear tests de reglas.
-- [ ] Crear tests de scoring.
+- [x] Crear tests de scoring.
 - [ ] Crear tests de NLP.
-- [ ] Crear tests de agente.
+- [x] Crear tests de agente.
 - [x] Validar que `pytest` ejecuta.
 
 ---
@@ -277,31 +277,31 @@ Progreso global estimado de implementación: 42%.
 
 - [x] Completar `README.md`.
 - [x] Completar documentación de modelo de datos.
-- [~] Completar documentación de reglas.
-- [~] Completar documentación de uso de IA.
-- [~] Completar documentación de ética y privacidad.
-- [~] Completar documentación de limitaciones.
-- [ ] Mantener `docs/development.md` actualizado.
-- [ ] Mantener este archivo actualizado.
+- [x] Completar documentación de reglas.
+- [x] Completar documentación de uso de IA.
+- [x] Completar documentación de ética y privacidad.
+- [x] Completar documentación de limitaciones.
+- [x] Mantener `docs/development.md` actualizado.
+- [x] Mantener este archivo actualizado.
 
 ## Seguridad y ética
 
-- [ ] Confirmar que no hay datos reales.
-- [ ] Confirmar que no hay credenciales.
-- [ ] Confirmar que no hay API keys.
-- [ ] Confirmar que `.env` real no se versiona.
-- [ ] Confirmar que la app no acusa fraude.
-- [ ] Confirmar que la app no recomienda rechazo automático.
-- [ ] Confirmar que las explicaciones son trazables.
+- [x] Confirmar que no hay datos reales.
+- [x] Confirmar que no hay credenciales.
+- [x] Confirmar que no hay API keys.
+- [x] Confirmar que `.env` real no se versiona.
+- [x] Confirmar que la app no acusa fraude.
+- [x] Confirmar que la app no recomienda rechazo automático.
+- [x] Confirmar que las explicaciones son trazables.
 
 ## Demo y pitch
 
-- [ ] Preparar script de demo.
+- [x] Preparar script de demo.
 - [ ] Preparar presentación ejecutiva.
 - [ ] Ensayar demo de 10 minutos.
-- [ ] Preparar respuesta técnica sobre TF-IDF y cosine similarity.
-- [ ] Preparar respuesta ética sobre revisión humana.
-- [ ] Preparar respuesta de negocio sobre priorización de casos.
+- [x] Preparar respuesta técnica sobre TF-IDF y cosine similarity.
+- [x] Preparar respuesta ética sobre revisión humana.
+- [x] Preparar respuesta de negocio sobre priorización de casos.
 - [ ] Preparar video backup si hay tiempo.
 
 ---
