@@ -1,4 +1,8 @@
-"""Router local de intenciones para el agente consultivo."""
+"""Router local de intenciones para el agente consultivo.
+
+El router clasifica preguntas en lenguaje natural a tools controladas sobre
+`scored_claims.csv`. No usa LLM externo, no recalcula scores y no acusa fraude.
+"""
 
 from __future__ import annotations
 
@@ -9,39 +13,109 @@ import pandas as pd
 from src.agent import agent_tools as tools
 
 
+# Diccionario de intenciones con sinonimos en espanol/ingles para clasificar
+# preguntas libres del usuario sin depender de palabras exactas.
+INTENT_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "explain":          ("por que", "por qué", "porque", "explica", "explicar", "explicacion", "explicación", "detalle", "razon", "razón", "motivo"),
+    "provider":         ("proveedor", "taller", "clinica", "clínica", "perito", "peritaje", "centro medico", "centro médico"),
+    "city":             ("ciudad", "ciudades", "sucursal", "guayaquil", "quito", "cuenca", "manta", "loja"),
+    "branch":           ("ramo", "ramos", "cobertura", "coberturas", "linea", "línea"),
+    "insured":          ("asegurado", "asegurados", "cliente", "clientes", "frecuencia", "recurrente"),
+    "documents":        ("document", "documental", "papeles", "factura", "denuncia"),
+    "amount":           ("monto", "montos", "valor", "atipico", "atípico", "atipicos", "atípicos", "alto", "elevado"),
+    "policy_start":     ("inicio", "vigencia", "borde", "poliza", "póliza", "recien", "recién"),
+    "narrative":        ("narrativa", "narrativas", "similar", "similares", "patron", "patrón", "patrones", "texto", "descripcion", "descripción"),
+    "summary":          ("resumen", "ejecutivo", "panorama", "estado general", "overview", "sintesis", "síntesis"),
+    "recommend":        ("recomienda", "recomendacion", "recomendación", "revisar primero", "priorizar", "primero", "urgente"),
+    "top":              ("top", "mayor riesgo", "mas riesgo", "más riesgo", "criticos", "críticos", "rojos", "ranking"),
+}
+
+
+GREETINGS = ("hola", "buenas", "buenos dias", "buenos días", "buen dia", "buen día", "saludos", "hey", "hi", "hello")
+
+
 def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
-    """Responde preguntas operativas con tools controladas."""
+    """Responde preguntas operativas con tools controladas.
+
+    El router primero busca un id de siniestro explicito. Si no hay, intenta
+    clasificar la intencion por palabras clave. Si la pregunta no encaja en
+    ninguna intencion, devuelve un mensaje guia con las opciones disponibles
+    en lugar del fallback silencioso de top riesgos.
+    """
     df = claims if claims is not None else tools.load_scored_claims()
     if df.empty:
-        return "No hay datos procesados. Ejecuta primero python setup_demo.py."
+        return "No hay datos procesados. Ejecuta primero `python setup_demo.py`."
 
-    normalized = question.lower()
-    claim_id = _extract_claim_id(question)
-    if "por que" in normalized or "por qué" in normalized or claim_id:
+    raw = (question or "").strip()
+    if not raw:
+        return _guidance_message()
+
+    normalized = raw.lower()
+
+    if any(g == normalized or normalized.startswith(g + " ") for g in GREETINGS):
+        return (
+            "Hola. Soy el agente consultivo de FraudLens. Puedo responder sobre "
+            "top de riesgos, proveedores, ciudades, ramos, asegurados frecuentes, "
+            "documentos faltantes, montos atipicos, casos cerca del inicio de poliza, "
+            "narrativas similares y resumen ejecutivo. Tambien puedo explicar un caso "
+            "especifico si me das el ID (ejemplo: SIN-00012)."
+        )
+
+    claim_id = _extract_claim_id(raw)
+    if claim_id:
         return tools.explain_claim(df, claim_id)
-    if "proveedor" in normalized:
-        return tools.provider_alert_summary(df)
-    if "ciudad" in normalized:
-        return tools.city_risk_summary(df)
-    if "ramo" in normalized:
-        return tools.branch_risk_summary(df)
-    if "asegurado" in normalized or "frecuencia" in normalized:
-        return tools.frequent_insured_summary(df)
-    if "document" in normalized:
-        return tools.missing_documents_summary(df)
-    if "monto" in normalized:
-        return tools.atypical_amounts(df)
-    if "inicio" in normalized or "poliza" in normalized or "póliza" in normalized:
-        return tools.near_policy_start(df)
-    if "narrativa" in normalized or "similar" in normalized or "patron" in normalized or "patrón" in normalized:
-        return tools.similar_narratives(df)
-    if "resumen" in normalized or "ejecutivo" in normalized:
-        return tools.executive_summary(df)
-    if "recomienda" in normalized or "revisar primero" in normalized:
-        return tools.top_risk_claims(df, limit=5)
-    return tools.top_risk_claims(df)
+
+    matched = _match_intent(normalized)
+    if matched is None:
+        return _guidance_message(question=raw)
+
+    dispatch = {
+        "explain":      lambda: tools.explain_claim(df, None),
+        "provider":     lambda: tools.provider_alert_summary(df),
+        "city":         lambda: tools.city_risk_summary(df),
+        "branch":       lambda: tools.branch_risk_summary(df),
+        "insured":      lambda: tools.frequent_insured_summary(df),
+        "documents":    lambda: tools.missing_documents_summary(df),
+        "amount":       lambda: tools.atypical_amounts(df),
+        "policy_start": lambda: tools.near_policy_start(df),
+        "narrative":    lambda: tools.similar_narratives(df),
+        "summary":      lambda: tools.executive_summary(df),
+        "recommend":    lambda: tools.top_risk_claims(df, limit=5),
+        "top":          lambda: tools.top_risk_claims(df),
+    }
+    return dispatch[matched]()
+
+
+def _match_intent(normalized: str) -> str | None:
+    """Devuelve la intencion con mas coincidencias de keywords, o None."""
+    scores: dict[str, int] = {}
+    for intent, keywords in INTENT_KEYWORDS.items():
+        hits = sum(1 for kw in keywords if kw in normalized)
+        if hits:
+            scores[intent] = hits
+    if not scores:
+        return None
+    return max(scores, key=scores.get)
+
+
+def _guidance_message(question: str | None = None) -> str:
+    quoted = f' "{question}"' if question else ""
+    return (
+        f"No identifique una consulta operativa clara{quoted}. Algunas opciones:\n\n"
+        "- Top de mayor riesgo: \"cuales son los siniestros mas criticos\"\n"
+        "- Proveedores: \"que proveedores concentran alertas\"\n"
+        "- Ciudades: \"que ciudades tienen mas casos rojos\"\n"
+        "- Ramos: \"que ramos tienen mas riesgo\"\n"
+        "- Asegurados frecuentes: \"asegurados con mas siniestros\"\n"
+        "- Documentos: \"casos con documentos faltantes\"\n"
+        "- Montos atipicos: \"siniestros con monto elevado\"\n"
+        "- Inicio de poliza: \"casos cerca del inicio de la poliza\"\n"
+        "- Narrativas: \"casos con narrativa similar\"\n"
+        "- Resumen ejecutivo: \"dame el resumen\"\n"
+        "- Explicar un caso especifico: escribe el ID, por ejemplo \"SIN-00012\"."
+    )
 
 
 def _extract_claim_id(text: str) -> str | None:
-    match = re.search(r"SIN-\d{5}", text.upper())
+    match = re.search(r"SIN-\d{3,6}", text.upper())
     return match.group(0) if match else None
