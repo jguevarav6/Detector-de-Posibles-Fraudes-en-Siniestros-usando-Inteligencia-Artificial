@@ -24,14 +24,14 @@ Reglas:
 | Área | Responsable | Estado | Progreso |
 |---|---|---|---:|
 | Configuración base | Ambos | Completo | 100% |
-| Frontend Streamlit | Persona 1 | En progreso | 75% |
-| Backend, datos y SQL | Persona 2 | En progreso | 70% |
-| Reglas y scoring | Persona 2 | En progreso | 70% |
-| ML/NLP | Persona 2 | En progreso | 55% |
-| Agente local/MCP | Persona 2 | En progreso | 55% |
-| QA, docs y demo | Ambos | En progreso | 60% |
+| Frontend Streamlit | Persona 1 | En progreso | 85% |
+| Backend, datos y SQL | Persona 2 | En progreso | 82% |
+| Reglas y scoring | Persona 2 | En progreso | 85% |
+| ML/NLP | Persona 2 | En progreso | 78% |
+| Agente local/MCP | Persona 2 | En progreso | 82% |
+| QA, docs y demo | Ambos | En progreso | 85% |
 
-Progreso global estimado de implementación: 70%.
+Progreso global estimado de implementación: 85%.
 
 ---
 
@@ -66,9 +66,9 @@ Progreso global estimado de implementación: 70%.
 - [x] Agregar filtros por nivel de riesgo.
 - [x] Agregar filtros por ciudad.
 - [x] Agregar filtros por ramo.
-- [ ] Agregar filtros por cobertura.
+- [x] Agregar filtros por cobertura.
 - [x] Agregar filtros por proveedor.
-- [ ] Agregar filtro por rango de monto.
+- [x] Agregar filtro por rango de monto.
 - [x] Mostrar tabla ordenada por `score_final` descendente.
 - [x] Mostrar acción sugerida para revisión.
 
@@ -79,7 +79,7 @@ Progreso global estimado de implementación: 70%.
 - [x] Mostrar score final y semáforo.
 - [x] Mostrar reglas activadas.
 - [x] Mostrar explicación humana.
-- [ ] Mostrar datos de póliza.
+- [x] Mostrar datos de póliza.
 - [x] Mostrar datos del asegurado sintético.
 - [x] Mostrar datos del vehículo.
 - [x] Mostrar datos del proveedor.
@@ -92,8 +92,8 @@ Progreso global estimado de implementación: 70%.
 - [x] Mostrar ranking de proveedores por alertas.
 - [x] Mostrar casos rojos por proveedor.
 - [x] Mostrar monto promedio reclamado.
-- [ ] Mostrar porcentaje de casos observados.
-- [ ] Mostrar indicador de lista restrictiva simulada.
+- [x] Mostrar porcentaje de casos observados.
+- [x] Mostrar indicador de lista restrictiva simulada.
 
 ## Fase 6: agente en interfaz
 
@@ -117,8 +117,8 @@ Progreso global estimado de implementación: 70%.
 - [x] Revisar responsividad básica.
 - [x] Revisar que textos no se corten.
 - [x] Revisar colores del semáforo.
-- [ ] Ensayar flujo: dashboard -> bandeja -> detalle -> agente -> reporte.
-- [ ] Preparar capturas o video backup si aplica.
+- [x] Ensayar flujo: dashboard -> bandeja -> detalle -> agente -> reporte.
+- [~] Preparar capturas o video backup si aplica.
 
 ---
 
@@ -160,8 +160,8 @@ Progreso global estimado de implementación: 70%.
 - [x] Crear tablas `documents`.
 - [x] Crear tabla `risk_scores`.
 - [x] Crear `src/database/queries.py`.
-- [ ] Crear consultas para dashboard.
-- [ ] Crear consultas para agente.
+- [x] Crear consultas para dashboard.
+- [x] Crear consultas para agente.
 
 ## Fase 4: features
 
@@ -217,7 +217,7 @@ Progreso global estimado de implementación: 70%.
 - [x] Guardar modelo supervisado.
 - [x] Guardar modelo de anomalías si aplica.
 - [x] Guardar `data/processed/model_metrics.json`.
-- [ ] Documentar que la etiqueta es simulada.
+- [x] Documentar que la etiqueta es simulada.
 
 ## Fase 8: NLP
 
@@ -239,7 +239,7 @@ Progreso global estimado de implementación: 70%.
 - [x] Implementar intención proveedores con alertas.
 - [x] Implementar intención ramos con riesgo.
 - [x] Implementar intención ciudades con alertas.
-- [ ] Implementar intención asegurados frecuentes.
+- [x] Implementar intención asegurados frecuentes.
 - [x] Implementar intención documentos faltantes.
 - [x] Implementar intención montos atípicos.
 - [x] Implementar intención siniestros cerca de inicio de póliza.
@@ -250,22 +250,22 @@ Progreso global estimado de implementación: 70%.
 ## Fase 10: MCP opcional
 
 - [x] Crear `src/mcp_server/server.py`.
-- [ ] Exponer tool `get_top_risk_claims`.
-- [ ] Exponer tool `explain_claim_risk`.
-- [ ] Exponer tool `get_provider_alert_summary`.
-- [ ] Exponer tool `get_city_risk_summary`.
-- [ ] Exponer tool `get_missing_documents_critical`.
-- [ ] Exponer tool `get_similar_narratives`.
-- [ ] Exponer tool `simulate_claim_score`.
-- [ ] Exponer tool `generate_executive_summary`.
+- [x] Exponer tool `get_top_risk_claims`.
+- [x] Exponer tool `explain_claim_risk`.
+- [x] Exponer tool `get_provider_alert_summary`.
+- [x] Exponer tool `get_city_risk_summary`.
+- [x] Exponer tool `get_missing_documents_critical`.
+- [x] Exponer tool `get_similar_narratives`.
+- [x] Descartar `simulate_claim_score` por alcance etico; MCP no recalcula scores.
+- [x] Exponer tool `generate_executive_summary`.
 - [x] Crear `docs/agente_mcp.md`.
 
 ## Fase 11: tests
 
 - [x] Crear tests de generación de datos.
-- [ ] Crear tests de reglas.
+- [x] Crear tests de reglas.
 - [x] Crear tests de scoring.
-- [ ] Crear tests de NLP.
+- [x] Crear tests de NLP.
 - [x] Crear tests de agente.
 - [x] Validar que `pytest` ejecuta.
 
@@ -297,12 +297,12 @@ Progreso global estimado de implementación: 70%.
 ## Demo y pitch
 
 - [x] Preparar script de demo.
-- [ ] Preparar presentación ejecutiva.
-- [ ] Ensayar demo de 10 minutos.
+- [x] Preparar presentación ejecutiva.
+- [x] Ensayar demo de 10 minutos.
 - [x] Preparar respuesta técnica sobre TF-IDF y cosine similarity.
 - [x] Preparar respuesta ética sobre revisión humana.
 - [x] Preparar respuesta de negocio sobre priorización de casos.
-- [ ] Preparar video backup si hay tiempo.
+- [~] Preparar video backup si hay tiempo.
 
 ---
 

@@ -25,6 +25,8 @@ def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
         return tools.city_risk_summary(df)
     if "ramo" in normalized:
         return tools.branch_risk_summary(df)
+    if "asegurado" in normalized or "frecuencia" in normalized:
+        return tools.frequent_insured_summary(df)
     if "document" in normalized:
         return tools.missing_documents_summary(df)
     if "monto" in normalized:

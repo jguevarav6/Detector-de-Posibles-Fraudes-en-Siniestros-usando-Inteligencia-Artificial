@@ -37,9 +37,9 @@ El agente:
 - No confirma fraude.
 - Responde con datos concretos de la bandeja procesada.
 
-## MCP opcional
+## MCP opcional implementado
 
-MCP queda como diferenciador futuro para exponer las mismas tools de forma estandarizada.
+El archivo `src/mcp_server/server.py` expone wrappers serializables para las mismas tools del agente local. Si el SDK `mcp` esta instalado, `create_mcp_server()` registra esas funciones en `FastMCP`.
 
 Tools candidatas:
 
@@ -53,4 +53,13 @@ Tools candidatas:
 
 ## Decision de MVP
 
-El agente local ya cumple el reto porque responde preguntas clave con funciones controladas. MCP no bloquea la demo ni la presentacion.
+El agente local ya cumple el reto porque responde preguntas clave con funciones controladas. MCP queda como diferenciador opcional y no bloquea la demo ni la presentacion.
+
+## Ejecucion opcional
+
+```bash
+pip install mcp
+python -m src.mcp_server.server
+```
+
+Si falta el SDK MCP, instalarlo solo para la demo avanzada. La app Streamlit no depende de este servidor.
