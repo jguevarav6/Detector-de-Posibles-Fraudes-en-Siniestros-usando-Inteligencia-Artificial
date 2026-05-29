@@ -19,9 +19,11 @@ Salida prevista:
 - `data/synthetic/providers.csv`
 - `data/synthetic/documents.csv`
 - `data/synthetic/watchlist.csv`
-- `data/processed/fraudlens_demo.sqlite`
+- Tablas MySQL en la base `fraudlens_claims_ai`
+- `data/processed/scored_claims.csv`
+- `data/processed/risk_scores.csv`
 
-Los CSV y SQLite generados son artefactos locales y no se versionan.
+Los CSV procesados y datos MySQL generados son artefactos locales y no se versionan.
 
 ## Entidades
 
@@ -63,7 +65,7 @@ Campos clave: `id_documento`, `id_siniestro`, `tipo_documento`, `entregado`, `le
 
 ### risk_scores
 
-Tabla preparada en SQLite para resultados de scoring. Se crea vacía en esta fase.
+Tabla MySQL con resultados de scoring. Se llena al ejecutar `python setup_demo.py`.
 
 Campos clave: `id_siniestro`, `score_reglas`, `score_ml`, `score_anomalia`, `score_nlp`, `score_final`, `nivel_riesgo`, `reglas_activadas`, `explicacion`, `accion_sugerida`.
 

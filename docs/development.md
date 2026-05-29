@@ -61,11 +61,11 @@ Flujo obligatorio de Git:
 | Datos sintéticos | En progreso | 80% |
 | Reglas y score | En progreso | 70% |
 | ML/NLP | En progreso | 55% |
-| Dashboard Streamlit | En progreso | 78% |
-| Agente local/MCP | En progreso | 55% |
-| QA/demo/pitch | En progreso | 60% |
+| Dashboard Streamlit | En progreso | 85% |
+| Agente local/MCP | En progreso | 82% |
+| QA/demo/pitch | En progreso | 85% |
 
-Progreso global estimado: 70%.
+Progreso global estimado: 85%.
 
 ## Plan de trabajo por fases
 
@@ -418,3 +418,20 @@ pytest
 - Tarea pendiente: Preparar presentacion ejecutiva y, si hay tiempo, implementar servidor MCP opcional.
 - Progreso estimado: 70%.
 - Siguiente paso: Commit, push y ensayo final de demo.
+
+## 2026-05-28 - MCP opcional, pitch y QA ampliado
+
+- Responsable: Codex.
+- Tipo de cambio: agente, qa, documentacion, frontend, seguridad.
+- Rama: feature/pitch-mcp-qa-85.
+- Descripción de commit: Implementar wrappers MCP opcionales, completar intencion de asegurados frecuentes, agregar pitch ejecutivo y ampliar pruebas de reglas, NLP, MCP y estructura.
+- Tarea: Avanzar el MVP de 70% a 85% con foco en diferenciador, demo y confiabilidad.
+- Archivos modificados: `src/agent/`, `src/mcp_server/server.py`, `tests/`, `presentation/pitch.md`, `docs/agente_mcp.md`, `docs/tareas.md`, `docs/development.md`.
+- Decisión tomada: Mantener MCP opcional para no bloquear Streamlit; exponer wrappers serializables que reutilizan las mismas tools auditables del agente local.
+- Revisión de seguridad: No se agregaron datos reales, secretos ni lenguaje acusatorio. MCP no modifica datos ni recalcula scores.
+- Problema encontrado: Faltaban pruebas para reglas/NLP/MCP y la presentacion ejecutiva seguia vacia.
+- Solución aplicada: Agregar tests, pitch, tools MCP, intencion de asegurados frecuentes y actualizar tablero de progreso.
+- Tarea completada: QA ampliado y demo documentada hasta 85%.
+- Tarea pendiente: Convertir pitch Markdown a PDF y grabar video backup si el equipo lo requiere.
+- Progreso estimado: 85%.
+- Siguiente paso: Commit y push de la rama `feature/pitch-mcp-qa-85`.
