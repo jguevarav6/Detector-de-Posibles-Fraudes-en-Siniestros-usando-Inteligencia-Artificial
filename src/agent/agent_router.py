@@ -16,6 +16,8 @@ from src.agent import agent_tools as tools
 # Diccionario de intenciones con sinonimos en espanol/ingles para clasificar
 # preguntas libres del usuario sin depender de palabras exactas.
 INTENT_KEYWORDS: dict[str, tuple[str, ...]] = {
+    "help_what_is_watchlist": ("que es watchlist", "que es la watchlist", "que es watchlsit", "que es un watchlist", "para que sirve la watchlist", "que es compliance"),
+    "help_how_it_works":      ("como funciona", "como trabaja", "que hace el sistema", "que hace fraudlens", "como esta hecho", "explicame el sistema", "como funciona esto"),
     "watchlist_summary": ("watchlist", "compliance", "lista restrictiva", "lista negra", "observados", "antecedentes", "cuantos cruzan", "cruce"),
     "pareto_providers":  ("80", "ochenta", "pareto", "concentran", "concentracion 80"),
     "explain":          ("por que", "por qué", "porque", "explica", "explicar", "explicacion", "explicación", "detalle", "razon", "razón", "motivo"),
@@ -75,6 +77,8 @@ def answer_question(question: str, claims: pd.DataFrame | None = None) -> str:
         return _guidance_message(question=raw)
 
     dispatch = {
+        "help_what_is_watchlist": lambda: _meta_what_is_watchlist(),
+        "help_how_it_works":      lambda: _meta_how_it_works(),
         "watchlist_summary": lambda: _format_watchlist_summary(tools.watchlist_summary()),
         "pareto_providers":  lambda: _format_pareto(tools.pareto_red_providers(0.8)),
         "explain":      lambda: tools.explain_claim(df, None),
@@ -113,6 +117,40 @@ def _format_pareto(data: dict) -> str:
     return (
         f"El {data['porcentaje_cubierto']:.0%} de las {data['rojos_totales']} alertas rojas "
         f"se concentra en {data['n_proveedores']} proveedores: {nombres}."
+    )
+
+
+def _meta_what_is_watchlist() -> str:
+    return (
+        "Una **watchlist** es una lista interna de compliance. Toda aseguradora real "
+        "mantiene dos bases separadas:\n\n"
+        "1. **Base operacional** (`fraudlens_claims_ai`): los siniestros que entran "
+        "cada dia, con sus polizas, asegurados, vehiculos y proveedores.\n"
+        "2. **Base watchlist** (`fraudlens_watchlist`): proveedores, asegurados y "
+        "vehiculos que ya tuvieron problemas antes, marcados por auditoria o por "
+        "casos previos.\n\n"
+        "Cuando llega un siniestro nuevo, FraudLens lo cruza automaticamente contra "
+        "la watchlist. Si el proveedor o asegurado ya esta marcado, sube la prioridad "
+        "de revision. En el demo actual hay 60 proveedores observados, 35 asegurados "
+        "con antecedentes, 22 vehiculos marcados y 12 patrones narrativos recurrentes. "
+        "Puedes ver los cruces en la pagina **Watchlist (DB2)** del menu."
+    )
+
+
+def _meta_how_it_works() -> str:
+    return (
+        "FraudLens analiza siniestros en cuatro capas y combina los resultados en un "
+        "score final de 0 a 100:\n\n"
+        "- **Reglas (55%)**: 13 reglas explicables como borde de vigencia, reporte "
+        "tardio, monto atipico, documentos incompletos o proveedor recurrente.\n"
+        "- **Machine Learning (25%)**: RandomForest entrenado sobre features tabulares "
+        "(LogisticRegression como fallback).\n"
+        "- **Anomalia (10%)**: IsolationForest detecta casos atipicos sin etiqueta.\n"
+        "- **NLP (10%)**: TF-IDF + cosine similarity para detectar narrativas similares.\n\n"
+        "El resultado se clasifica en Verde (<41), Amarillo (41-75) y Rojo (76+). "
+        "El sistema **no decide pagos ni acusa fraude**: solo prioriza casos para "
+        "revision humana. Ademas el **MCP** consulta dos bases MySQL en paralelo "
+        "(operacional y watchlist) para responder preguntas que cruzan ambos sistemas."
     )
 
 
