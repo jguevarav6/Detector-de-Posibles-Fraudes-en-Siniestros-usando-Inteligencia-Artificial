@@ -21,9 +21,11 @@ RISK_COLORS_SOFT = {
 
 
 def inject_global_styles() -> None:
+    """Inyecta CSS global. Usa st.markdown porque st.html mete el contenido
+    en iframe interno donde el <style> no afecta al documento padre."""
     import streamlit as st
 
-    st.html(
+    st.markdown(
         """
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,15 +69,19 @@ def inject_global_styles() -> None:
 
         html, body, .stApp, .main, [class*="css"] {
           font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-          color: var(--fl-ink);
+          color: #0a1628 !important;
         }
-        .stApp { background: var(--fl-bg); }
-        .main .block-container {
-          max-width: 1400px;
-          padding-top: 1.4rem;
-          padding-bottom: 3rem;
+        .stApp, .stApp > div, [data-testid="stAppViewContainer"] {
+          background: #f4f6fa !important;
+        }
+        .main .block-container, [data-testid="stMain"] .block-container {
+          max-width: 1400px !important;
+          padding-top: 1.4rem !important;
+          padding-bottom: 3rem !important;
+          background: transparent !important;
           animation: fl-fade-in .35s ease;
         }
+        [data-testid="stHeader"] { background: transparent !important; }
         @keyframes fl-fade-in { from { opacity:0; transform: translateY(6px); } to { opacity:1; transform:none; } }
         @keyframes fl-pulse { 0%,100% { opacity:.55; } 50% { opacity:1; } }
 
@@ -85,11 +91,14 @@ def inject_global_styles() -> None:
         h3 { font-size: 1.1rem; }
 
         /* ============ SIDEBAR ============ */
-        [data-testid="stSidebar"] {
-          background: radial-gradient(120% 80% at 0% 0%, #1e3a8a 0%, #0a1628 55%, #050a15 100%);
-          border-right: 1px solid rgba(255,255,255,.04);
+        [data-testid="stSidebar"],
+        [data-testid="stSidebar"] > div,
+        [data-testid="stSidebarContent"],
+        section[data-testid="stSidebar"] {
+          background: radial-gradient(120% 80% at 0% 0%, #1e3a8a 0%, #0a1628 55%, #050a15 100%) !important;
+          border-right: 1px solid rgba(255,255,255,.04) !important;
         }
-        [data-testid="stSidebar"] * { color:#e6ecf5; }
+        [data-testid="stSidebar"] * { color:#e6ecf5 !important; }
         [data-testid="stSidebar"] hr { border-color: rgba(255,255,255,.08); }
         [data-testid="stSidebar"] [role="radiogroup"] { gap:3px; }
         [data-testid="stSidebar"] [role="radiogroup"] label {
@@ -424,7 +433,8 @@ def inject_global_styles() -> None:
           .fl-score-grid { grid-template-columns: 1fr 1fr; gap:8px; }
         }
         </style>
-        """
+        """,
+        unsafe_allow_html=True,
     )
 
 
