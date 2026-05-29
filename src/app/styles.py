@@ -21,16 +21,41 @@ RISK_COLORS_SOFT = {
 
 
 def inject_global_styles() -> None:
-    """Inyecta CSS global. Usa st.html porque en Streamlit 1.58
-    st.markdown filtra los tags <style> y los muestra como texto."""
-    import streamlit as st
+    """Inyecta CSS global de forma garantizada.
 
-    st.html(
-        """
-        <link rel="preconnect" href="https://fonts.googleapis.com">
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
-        <style>
+    En Streamlit 1.58, ni `st.markdown` ni `st.html` ofrecen una via 100%
+    confiable para inyectar `<style>` en el head del documento padre.
+    Usamos `components.html` con un script que escribe la regla directamente
+    en `parent.document.head`. Asi el CSS queda en el documento principal
+    aunque el componente sea un iframe.
+    """
+    import streamlit.components.v1 as components
+
+    components.html(
+        f"""
+        <script>
+        (function() {{
+          const parentHead = window.parent.document.head;
+          if (!parentHead) return;
+          if (window.parent.document.getElementById('fl-inter-link')) return;
+          const fonts = window.parent.document.createElement('link');
+          fonts.id = 'fl-inter-link';
+          fonts.rel = 'stylesheet';
+          fonts.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap';
+          parentHead.appendChild(fonts);
+          if (window.parent.document.getElementById('fl-style')) return;
+          const style = window.parent.document.createElement('style');
+          style.id = 'fl-style';
+          style.innerHTML = `{_GLOBAL_CSS}`;
+          parentHead.appendChild(style);
+        }})();
+        </script>
+        """,
+        height=0,
+    )
+
+
+_GLOBAL_CSS = """
         :root {
           --fl-ink:        #0a1628;
           --fl-ink-2:      #1a2942;
@@ -432,9 +457,7 @@ def inject_global_styles() -> None:
           .fl-kpi-icon { width:26px; height:26px; }
           .fl-score-grid { grid-template-columns: 1fr 1fr; gap:8px; }
         }
-        </style>
-        """
-    )
+"""
 
 
 def _svg(body: str, color: str = "#ffffff", width: int = 24, stroke: float = 2.0) -> str:

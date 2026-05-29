@@ -13,10 +13,34 @@ from src.database import watchlist_repo
 
 def render(claims: pd.DataFrame) -> None:
     page_header(
-        "Cruce operacional vs compliance",
-        "El MCP consulta dos bases MySQL en paralelo: fraudlens_claims_ai (siniestros) y fraudlens_watchlist (lista observada). Aqui ves el resultado del cruce.",
+        "Watchlist y cruce de bases",
+        "Watchlist = lista interna de compliance con proveedores, asegurados y vehiculos que ya tuvieron problemas. El sistema cruza siniestros nuevos contra esa lista para priorizar revision.",
     )
     ethics_notice()
+
+    st.markdown(
+        """
+        <div style="background:#ffffff; border:1px solid #e3e8f0;
+                    border-left:4px solid #2563eb; border-radius:12px;
+                    padding:16px 20px; margin-bottom:18px;">
+          <div style="font-weight:800; color:#0a1628; font-size:1rem; margin-bottom:6px;">
+            &iquest;Que es esta pantalla y para que sirve?
+          </div>
+          <div style="color:#28344a; font-size:.92rem; line-height:1.6;">
+            En una aseguradora real existen <strong>dos bases separadas</strong>:
+            la base <strong>operacional</strong> (siniestros que entran cada dia)
+            y la base de <strong>compliance / watchlist</strong> (proveedores,
+            asegurados y vehiculos marcados por auditoria o casos previos).
+            <br><br>
+            FraudLens conecta las dos via MCP. Cuando llega un siniestro nuevo,
+            el sistema lo <strong>cruza automaticamente</strong> con la watchlist
+            y prioriza casos donde el proveedor, asegurado o vehiculo ya tenia
+            historial. Aqui ves esos cruces en tiempo real.
+          </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
 
     summary = agent_tools.watchlist_summary()
     cols = st.columns(4)
