@@ -5,67 +5,102 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from src.app.styles import RISK_COLORS
+from src.app.styles import (
+    RISK_COLORS,
+    icon_alert,
+    icon_check,
+    icon_info,
+    icon_shield,
+)
 
 
-def page_header(title: str, subtitle: str) -> None:
-    st.markdown(
+_KPI_ICONS = {
+    "red": icon_alert,
+    "amber": icon_alert,
+    "green": icon_check,
+    "blue": icon_shield,
+    "": icon_shield,
+}
+
+
+def page_header(title: str, subtitle: str, badge: str = "Demo Hackathon | Aseguradora del Sur", icon_svg: str | None = None) -> None:
+    icon = icon_svg if icon_svg is not None else icon_shield()
+    badge_html = f'<div class="fl-hero-badge">{badge}</div>' if badge else ""
+    st.html(
         f"""
         <div class="fl-hero">
-          <h1>{title}</h1>
-          <p>{subtitle}</p>
+          <div class="fl-hero-row">
+            <div class="fl-hero-icon">{icon}</div>
+            <div class="fl-hero-content">
+              {badge_html}
+              <h1>{title}</h1>
+              <p>{subtitle}</p>
+            </div>
+          </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def ethics_notice() -> None:
-    st.markdown(
-        """
+    st.html(
+        f"""
         <div class="fl-alert">
-        FraudLens genera alertas explicables para revision humana. No acusa fraude,
-        no rechaza siniestros y no reemplaza el criterio del analista.
+          <div class="fl-alert-icon">{icon_info()}</div>
+          <div>
+            <strong>Aviso etico.</strong> FraudLens genera alertas explicables para revision humana.
+            No acusa fraude, no rechaza siniestros y no reemplaza el criterio del analista.
+          </div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
-def kpi_card(label: str, value: str, hint: str = "") -> None:
-    st.markdown(
+def kpi_card(label: str, value: str, hint: str = "", accent: str = "", icon: str | None = None) -> None:
+    """KPI con icono SVG y acento de color: 'red' | 'amber' | 'green' | 'blue' | ''."""
+    accent_class = f" accent-{accent}" if accent else ""
+    icon_svg = icon if icon is not None else _KPI_ICONS.get(accent, icon_shield)()
+    st.html(
         f"""
-        <div class="fl-kpi">
-          <div class="label">{label}</div>
-          <div class="value">{value}</div>
-          <div class="hint">{hint}</div>
+        <div class="fl-kpi{accent_class}">
+          <div class="fl-kpi-head">
+            <div class="fl-kpi-label">{label}</div>
+            <div class="fl-kpi-icon">{icon_svg}</div>
+          </div>
+          <div class="fl-kpi-value">{value}</div>
+          <div class="fl-kpi-hint">{hint}</div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
     )
 
 
 def section_title(title: str, hint: str = "") -> None:
     detail = f'<div class="fl-muted">{hint}</div>' if hint else ""
-    st.markdown(f'<div class="fl-section-title">{title}</div>{detail}', unsafe_allow_html=True)
+    st.html(f'<div class="fl-section-title">{title}</div>{detail}')
 
 
 def score_breakdown(row: pd.Series) -> None:
-    st.markdown(
+    parts = [
+        ("Reglas", float(row.get("score_reglas", 0))),
+        ("ML", float(row.get("score_ml", 0))),
+        ("Anomalia", float(row.get("score_anomalia", 0))),
+        ("NLP", float(row.get("score_nlp", 0))),
+    ]
+    items = "".join(
         f"""
-        <div class="fl-score-grid">
-          <div class="fl-score-item"><div class="label">Reglas</div><div class="value">{float(row.get("score_reglas", 0)):.0f}</div></div>
-          <div class="fl-score-item"><div class="label">ML</div><div class="value">{float(row.get("score_ml", 0)):.0f}</div></div>
-          <div class="fl-score-item"><div class="label">Anomalia</div><div class="value">{float(row.get("score_anomalia", 0)):.0f}</div></div>
-          <div class="fl-score-item"><div class="label">NLP</div><div class="value">{float(row.get("score_nlp", 0)):.0f}</div></div>
+        <div class="fl-score-item">
+          <div class="label">{label}</div>
+          <div class="value">{value:.0f}</div>
+          <div class="bar"><span style="width:{min(max(value, 0), 100):.0f}%"></span></div>
         </div>
-        """,
-        unsafe_allow_html=True,
+        """
+        for label, value in parts
     )
+    st.html(f'<div class="fl-score-grid">{items}</div>')
 
 
 def risk_pill(level: str) -> str:
-    color = RISK_COLORS.get(level, "#64748b")
+    color = RISK_COLORS.get(level, "#5b6677")
     return f'<span class="fl-pill" style="background:{color}">{level}</span>'
 
 

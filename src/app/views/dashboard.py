@@ -7,7 +7,15 @@ import plotly.express as px
 import streamlit as st
 
 from src.app.components import ethics_notice, format_currency, kpi_card, page_header, section_title
-from src.app.styles import RISK_COLORS
+from src.app.styles import (
+    RISK_COLORS,
+    icon_alert,
+    icon_alert_circle,
+    icon_check,
+    icon_dollar,
+    icon_search,
+    icon_trending,
+)
 
 
 def render(claims: pd.DataFrame) -> None:
@@ -27,16 +35,16 @@ def render(claims: pd.DataFrame) -> None:
 
     cols = st.columns(6)
     metrics = [
-        ("Siniestros", f"{total:,}", "Dataset sintetico procesado"),
-        ("Rojos", str(red), "Revision urgente"),
-        ("Amarillos", str(yellow), "Revision priorizada"),
-        ("Verdes", str(green), "Revision estandar"),
-        ("Monto reclamado", format_currency(amount_total), "Total de la bandeja"),
-        ("Tasa revisable", f"{review_rate:.1f}%", "Rojo + amarillo"),
+        ("Siniestros", f"{total:,}", "Dataset sintetico procesado", "blue", icon_search()),
+        ("Rojos", str(red), "Revision urgente", "red", icon_alert()),
+        ("Amarillos", str(yellow), "Revision priorizada", "amber", icon_alert_circle()),
+        ("Verdes", str(green), "Revision estandar", "green", icon_check()),
+        ("Monto reclamado", format_currency(amount_total), "Total de la bandeja", "", icon_dollar()),
+        ("Tasa revisable", f"{review_rate:.1f}%", "Rojo + amarillo", "blue", icon_trending()),
     ]
-    for col, metric in zip(cols, metrics):
+    for col, (label, value, hint, accent, icon) in zip(cols, metrics):
         with col:
-            kpi_card(*metric)
+            kpi_card(label, value, hint, accent, icon)
 
     section_title("Lectura ejecutiva", "Distribucion de prioridad, exposicion y concentraciones relevantes.")
     top_left, top_right = st.columns([1.05, 0.95])
