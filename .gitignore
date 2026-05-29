@@ -16,11 +16,16 @@ env/
 *.sqlite
 *.db
 *.joblib
-data/processed/*.csv
-data/processed/*.json
 data/processed/*.sqlite
 data/processed/*.db
 data/synthetic/*.csv
+
+# Procesados: scored_claims y risk_scores se versionan para deploy en Streamlit Cloud
+data/processed/*.csv
+data/processed/*.json
+!data/processed/scored_claims.csv
+!data/processed/risk_scores.csv
+!data/processed/model_metrics.json
 
 # OS / editors
 .DS_Store
