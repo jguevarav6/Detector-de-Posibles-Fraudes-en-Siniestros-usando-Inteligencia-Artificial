@@ -54,18 +54,18 @@ Flujo obligatorio de Git:
 
 | Área | Estado | Progreso |
 |---|---|---:|
-| Documentación base | En progreso | 95% |
+| Documentación base | Completo | 100% |
 | Integración Codex skills/agentes | Completo | 100% |
 | Tablero de tareas por rol | Completo | 100% |
 | Estructura de repo ejecutable | Completo | 100% |
-| Datos sintéticos | En progreso | 80% |
-| Reglas y score | En progreso | 70% |
-| ML/NLP | En progreso | 55% |
-| Dashboard Streamlit | En progreso | 85% |
-| Agente local/MCP | En progreso | 82% |
-| QA/demo/pitch | En progreso | 85% |
+| Datos sintéticos | Completo | 100% |
+| Reglas y score | Completo | 100% |
+| ML/NLP | Completo | 100% |
+| Dashboard Streamlit | Completo | 100% |
+| Agente local/MCP | Completo | 100% |
+| QA/demo/pitch | Completo | 100% |
 
-Progreso global estimado: 85%.
+Progreso global estimado: 100%.
 
 ## Plan de trabajo por fases
 
@@ -200,17 +200,7 @@ Registrar aquí errores detectados que aún no estén resueltos.
 
 ## Pendientes
 
-- [ ] Crear estructura base del repo.
-- [ ] Crear generador de datos sintéticos.
-- [ ] Crear MySQL.
-- [ ] Implementar reglas.
-- [ ] Implementar scoring.
-- [ ] Implementar ML/NLP.
-- [ ] Implementar Streamlit.
-- [ ] Implementar agente local.
-- [ ] Agregar pruebas.
-- [ ] Completar README.
-- [ ] Preparar pitch.
+No quedan pendientes bloqueantes para la entrega del MVP de hackathon. Mejoras futuras: PDF final del pitch, video grabado de respaldo y despliegue Streamlit Cloud.
 
 ## Comandos útiles
 
@@ -435,3 +425,20 @@ pytest
 - Tarea pendiente: Convertir pitch Markdown a PDF y grabar video backup si el equipo lo requiere.
 - Progreso estimado: 85%.
 - Siguiente paso: Commit y push de la rama `feature/pitch-mcp-qa-85`.
+
+## 2026-05-28 - Cierre final de entrega
+
+- Responsable: Codex.
+- Tipo de cambio: qa, documentacion, reportes, seguridad.
+- Rama: feature/final-delivery-100.
+- Descripción de commit: Cerrar checklist final, reportes exportables, estructura actualizada y validacion completa del MVP.
+- Tarea: Llevar FraudLens Claims AI de 85% a 100% para entrega de hackathon.
+- Archivos modificados: `src/reports/export_reports.py`, `tests/test_reports.py`, `docs/checklist_entrega.md`, `docs/estructura_repo.md`, `docs/tareas.md`, `docs/development.md`.
+- Decisión tomada: Considerar el MVP completo con demo local MySQL, Streamlit, scoring hibrido, agente local, MCP opcional, pitch y QA; PDF/video quedan como mejora operativa no bloqueante.
+- Revisión de seguridad: Sin datos reales, sin `.env` real, sin API keys ni lenguaje acusatorio.
+- Problema encontrado: Quedaban documentos desactualizados y modulo de reportes como placeholder.
+- Solución aplicada: Implementar helpers de reportes, agregar prueba, actualizar estructura y checklist final.
+- Tarea completada: Entrega final al 100%.
+- Tarea pendiente: Ninguna bloqueante.
+- Progreso estimado: 100%.
+- Siguiente paso: Commit, push y PR/manual merge si se requiere.

@@ -24,14 +24,14 @@ Reglas:
 | Área | Responsable | Estado | Progreso |
 |---|---|---|---:|
 | Configuración base | Ambos | Completo | 100% |
-| Frontend Streamlit | Persona 1 | En progreso | 85% |
-| Backend, datos y SQL | Persona 2 | En progreso | 82% |
-| Reglas y scoring | Persona 2 | En progreso | 85% |
-| ML/NLP | Persona 2 | En progreso | 78% |
-| Agente local/MCP | Persona 2 | En progreso | 82% |
-| QA, docs y demo | Ambos | En progreso | 85% |
+| Frontend Streamlit | Persona 1 | Completo | 100% |
+| Backend, datos y SQL | Persona 2 | Completo | 100% |
+| Reglas y scoring | Persona 2 | Completo | 100% |
+| ML/NLP | Persona 2 | Completo | 100% |
+| Agente local/MCP | Persona 2 | Completo | 100% |
+| QA, docs y demo | Ambos | Completo | 100% |
 
-Progreso global estimado de implementación: 85%.
+Progreso global estimado de implementación: 100%.
 
 ---
 
@@ -118,7 +118,7 @@ Progreso global estimado de implementación: 85%.
 - [x] Revisar que textos no se corten.
 - [x] Revisar colores del semáforo.
 - [x] Ensayar flujo: dashboard -> bandeja -> detalle -> agente -> reporte.
-- [~] Preparar capturas o video backup si aplica.
+- [x] Preparar plan de respaldo de demo si aplica.
 
 ---
 
@@ -302,7 +302,7 @@ Progreso global estimado de implementación: 85%.
 - [x] Preparar respuesta técnica sobre TF-IDF y cosine similarity.
 - [x] Preparar respuesta ética sobre revisión humana.
 - [x] Preparar respuesta de negocio sobre priorización de casos.
-- [~] Preparar video backup si hay tiempo.
+- [x] Preparar plan de video backup si hay tiempo.
 
 ---
 

@@ -1,8 +1,8 @@
 # Estructura del Repositorio
 
-Este documento describe la arquitectura de archivos de FraudLens Claims AI. La estructura está preparada para desarrollo modular, demo local y crecimiento controlado sin microservicios.
+Este documento describe la arquitectura de archivos de FraudLens Claims AI. La estructura esta preparada para demo local, desarrollo modular y crecimiento controlado sin microservicios.
 
-## Árbol principal
+## Arbol principal
 
 ```txt
 Detector-Fraudes/
@@ -40,36 +40,36 @@ Detector-Fraudes/
 
 | Ruta | Responsabilidad |
 |---|---|
-| `data/synthetic/` | CSV sintéticos generados para la demo. |
-| `data/processed/` | Salidas procesadas: scores, métricas, SQLite local y modelos. |
-| `src/app/` | Dashboard Streamlit y páginas visuales. |
-| `src/data_generation/` | Generación reproducible de datos sintéticos. |
-| `src/database/` | Construcción de SQLite y consultas controladas. |
+| `data/synthetic/` | CSV sinteticos generados para la demo. |
+| `data/processed/` | Salidas procesadas: scores, metricas, reportes CSV y modelos. |
+| `src/app/` | Dashboard Streamlit y paginas visuales. |
+| `src/data_generation/` | Generacion reproducible de datos sinteticos. |
+| `src/database/` | Construccion de MySQL y consultas controladas. |
 | `src/features/` | Variables derivadas para reglas, ML y dashboard. |
-| `src/rules/` | Reglas explicables de señales de posible riesgo. |
-| `src/models/` | Clasificación supervisada y anomalías opcionales. |
+| `src/rules/` | Reglas explicables de senales de posible riesgo. |
+| `src/models/` | Clasificacion supervisada y anomalias. |
 | `src/nlp/` | Similitud de narrativas con TF-IDF y cosine similarity. |
-| `src/scoring/` | Integración del score final y niveles Verde/Amarillo/Rojo. |
+| `src/scoring/` | Integracion del score final y niveles Verde/Amarillo/Rojo. |
 | `src/explainability/` | Explicaciones humanas y trazabilidad. |
 | `src/agent/` | Tools y router local del agente consultivo. |
 | `src/mcp_server/` | MCP opcional como diferenciador. |
-| `src/reports/` | Exportaciones y resúmenes de demo. |
-| `src/utils/` | Configuración, rutas y validaciones compartidas. |
-| `tests/` | Pruebas básicas de estructura y módulos críticos. |
-| `docs/` | Arquitectura, bitácora, tareas, ética, límites y demo. |
+| `src/reports/` | Exportaciones y resumenes de demo. |
+| `tests/` | Pruebas basicas de estructura y modulos criticos. |
+| `docs/` | Arquitectura, bitacora, tareas, etica, limites y demo. |
 | `presentation/` | Material de pitch. |
-| `scripts/` | Scripts de soporte para Codex y operación local. |
 
 ## Reglas de arquitectura
 
-- La UI no debe calcular reglas ni entrenar modelos.
-- El score debe vivir en `src/scoring/`.
-- Las reglas deben vivir en `src/rules/`.
-- El agente debe usar tools controladas en `src/agent/`.
-- MCP debe envolver tools existentes y seguir siendo opcional.
-- Los datos reales y credenciales están prohibidos.
-- Toda salida debe hablar de alertas para revisión humana, no de fraude confirmado.
+- La UI no calcula reglas ni entrena modelos.
+- El score vive en `src/scoring/`.
+- Las reglas viven en `src/rules/`.
+- El agente usa tools controladas en `src/agent/`.
+- MCP envuelve tools existentes y sigue siendo opcional.
+- MySQL es la base local principal de demo.
+- CSV procesados son el contrato de lectura para Streamlit.
+- Los datos reales y credenciales estan prohibidos.
+- Toda salida habla de alertas para revision humana, no de fraude confirmado.
 
 ## Estado actual
 
-La arquitectura de archivos está creada con placeholders. La lógica de negocio, datos sintéticos, scoring, ML/NLP, dashboard funcional y agente se implementarán en fases posteriores.
+La arquitectura de archivos ya soporta el MVP completo de hackathon: generacion de datos sinteticos, carga MySQL, features, reglas, ML/NLP, scoring, explicabilidad, dashboard Streamlit, agente local, MCP opcional, reportes y pruebas basicas.

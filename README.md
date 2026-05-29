@@ -182,6 +182,8 @@ La clasificación expresa prioridad de revisión, no culpabilidad.
 - Dashboard y demo.
 - Presentación ejecutiva.
 
+El dataset completo se genera localmente con `python setup_demo.py`. Para revisión rápida sin ejecutar el pipeline, existe una muestra versionada en `data/sample/claims_sample.csv`.
+
 ## Documentación principal
 
 - [Arquitectura](docs/arquitectura.md)
@@ -216,4 +218,8 @@ MVP funcional en progreso avanzado:
 - Agente local con tools controladas.
 - Documentación técnica, ética y script de demo.
 
-Progreso estimado en bitácora: 70%.
+Progreso estimado en bitácora: 100%.
+
+## Checklist final
+
+Ver [Checklist de entrega](docs/checklist_entrega.md).

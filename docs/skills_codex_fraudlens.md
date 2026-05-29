@@ -35,7 +35,7 @@ Definir y proteger la arquitectura del MVP.
 
 - Streamlit es el frontend.
 - Python 3.11 es el lenguaje principal.
-- CSV sintéticos y SQLite son la base de datos del MVP.
+- MySQL y CSV sintéticos/procesados son la base de datos del MVP.
 - MCP es opcional.
 - FastAPI, Docker y bases corporativas reales no son obligatorios.
 
@@ -135,7 +135,7 @@ Crear datos sintéticos realistas y seguros para la demo.
 ### Criterios de terminado
 
 - Existen CSV sintéticos.
-- La base SQLite puede reconstruirse.
+- La base MySQL puede reconstruirse.
 - Las tablas mínimas están presentes.
 - Los datos soportan reglas, ML y dashboard.
 

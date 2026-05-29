@@ -1,0 +1,6 @@
+id_siniestro,ciudad,ramo,cobertura,monto_reclamado,nivel_riesgo,score_final,nota
+SIN-SAMPLE-001,Guayaquil,Vehiculos,Robo total,18500,Rojo,88,Muestra sintetica no real
+SIN-SAMPLE-002,Quito,Salud,Atencion medica,4200,Amarillo,67,Muestra sintetica no real
+SIN-SAMPLE-003,Cuenca,Vehiculos,Choque,2100,Verde,32,Muestra sintetica no real
+SIN-SAMPLE-004,Manta,Hogar,Incendio,12500,Amarillo,74,Muestra sintetica no real
+SIN-SAMPLE-005,Loja,Vida,Incapacidad,3300,Amarillo,45,Muestra sintetica no real
