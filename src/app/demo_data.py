@@ -39,6 +39,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 2,
                 "similar_claim_id": "SIN-0028",
                 "max_similarity": 0.89,
+                "proveedor_porcentaje_casos_observados": 0.31,
+                "proveedor_lista_restrictiva": True,
+                "monto_vs_suma_asegurada": 0.82,
+                "poliza_suma_asegurada": 22500,
             },
             {
                 "id_siniestro": "SIN-0002",
@@ -59,6 +63,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 183,
                 "similar_claim_id": "",
                 "max_similarity": 0.34,
+                "proveedor_porcentaje_casos_observados": 0.18,
+                "proveedor_lista_restrictiva": False,
+                "monto_vs_suma_asegurada": 0.42,
+                "poliza_suma_asegurada": 10000,
             },
             {
                 "id_siniestro": "SIN-0003",
@@ -79,6 +87,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 248,
                 "similar_claim_id": "",
                 "max_similarity": 0.21,
+                "proveedor_porcentaje_casos_observados": 0.08,
+                "proveedor_lista_restrictiva": False,
+                "monto_vs_suma_asegurada": 0.12,
+                "poliza_suma_asegurada": 17500,
             },
             {
                 "id_siniestro": "SIN-0004",
@@ -99,6 +111,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 41,
                 "similar_claim_id": "",
                 "max_similarity": 0.42,
+                "proveedor_porcentaje_casos_observados": 0.22,
+                "proveedor_lista_restrictiva": False,
+                "monto_vs_suma_asegurada": 0.63,
+                "poliza_suma_asegurada": 20000,
             },
             {
                 "id_siniestro": "SIN-0005",
@@ -119,6 +135,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 9,
                 "similar_claim_id": "SIN-0001",
                 "max_similarity": 0.86,
+                "proveedor_porcentaje_casos_observados": 0.29,
+                "proveedor_lista_restrictiva": True,
+                "monto_vs_suma_asegurada": 0.76,
+                "poliza_suma_asegurada": 10000,
             },
             {
                 "id_siniestro": "SIN-0006",
@@ -139,6 +159,10 @@ def _demo_claims() -> pd.DataFrame:
                 "dias_desde_inicio_poliza": 92,
                 "similar_claim_id": "",
                 "max_similarity": 0.18,
+                "proveedor_porcentaje_casos_observados": 0.11,
+                "proveedor_lista_restrictiva": False,
+                "monto_vs_suma_asegurada": 0.21,
+                "poliza_suma_asegurada": 16000,
             },
         ]
     )

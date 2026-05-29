@@ -38,7 +38,7 @@ def evaluate_claim(row: pd.Series) -> list[RuleHit]:
         hits.append(_hit("R008_DOCUMENTOS_INCONSISTENTES", "Documentos inconsistentes", 18, "alta", "Hay documentos ilegibles o inconsistentes.", f"inconsistentes={row.get('documentos_inconsistentes', 0)}"))
     if row["hora_evento"] <= 4 and not bool(row["tercero_identificado"]):
         hits.append(_hit("R009_DINAMICA_SOSPECHOSA", "Dinamica a validar", 11, "media", "Evento nocturno sin tercero identificado.", f"hora={row['hora_evento']}"))
-    if not bool(row["tercero_identificado"]) and row["ramo"] == "Vehiculos":
+    if not bool(row["tercero_identificado"]) and str(row["ramo"]).replace("í", "i") == "Vehiculos":
         hits.append(_hit("R010_TERCERO_NO_IDENTIFICADO", "Tercero no identificado", 9, "baja", "No consta tercero identificado en un caso vehicular.", "tercero=False"))
     if row.get("score_nlp", 0) >= 70:
         hits.append(_hit("R011_NARRATIVA_SIMILAR", "Narrativa similar", 16, "alta", "La descripcion es muy similar a otro reclamo.", f"similitud={row.get('max_similarity', 0):.2f}"))
